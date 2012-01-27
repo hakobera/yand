@@ -13,52 +13,51 @@ var fs = require('fs'),
     crypto = require('crypto'),
     async = require('async');
 
+function makeTree(uri, parent, li) {
+  var node = [];
+
+  li.find('a').forEach(function(a) {
+    node[0] = a.text()? a.text() : '';
+    node[1] = a.attr('href') ? a.attr('href').value() : '';
+  });
+  node[2] = uri;
+  node[3] = [];
+  parent.push(node);
+
+  var children = li.find('ul/li');
+  if (children.length > 0) {
+    children.forEach(function(child) {
+      makeTree(uri, node[3], child);
+    });
+  }
+}
+
 console.time('processTime');
 cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
-  async.forEach(keys, function(key, next) {
-    if (key.indexOf('index.html') !== -1) {
+  var uri = keys[0],
+      root = [];
+
+  async.forEach(keys, function(uri, next) {
+    if (uri.indexOf('index.html') !== -1) {
       return next();
     }
 
-    cache.get(key, function(err, src) {
+    cache.get(uri, function(err, src) {
       if (err) {
         return next(err);
       }
 
       var doc = libxml.parseHtmlString(src);
-      doc.search('script, header, #intro, #column2, footer, head, noscript').forEach(function (e) {
-        e.remove();
+
+      var path = url.parse(uri).pathname;
+      doc.find("//div[@id='toc']/ul/li").forEach(function(li) {
+        makeTree(path, root, li);
       });
-
-      doc.find("//div[@id='footer']/ul").forEach(function(e) {
-        e.remove();
-      });
-
-      var path = url.parse(key).pathname;
-
-      var title = path.replace(/^\/en\/JavaScript\/Reference\//, '').replace(/^[^/]+\//, '').replace(/\//g, '.').replace(/_/g, ' ');
-      if (path == '/docs/latest/api/index.html') {
-          title = 'Top page';
-      }
-      doc.search('#title').forEach(function (e) {
-        e.text(title)
-        e.addClass('entry-title roundTop');
-      });
-      doc.search('#content').forEach(function (e) {
-        e.attr('id').remove(); // dup with system id
-        e.addClass('entry-content');
-      });
-
-      var md5 = crypto.createHash('md5');
-      md5.update(path);
-      var ofname = 'htdocs/converted/' + md5.digest('hex');
-
-      console.log('writing ' + ofname);
-      fs.writeFileSync(ofname, doc.toString());
 
       next();
     });
   }, function(err) {
+    console.log(util.inspect(root, false, 4));
     console.timeEnd('processTime');
 
     if (err) {
