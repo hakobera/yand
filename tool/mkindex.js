@@ -13,24 +13,26 @@ var fs = require('fs'),
     crypto = require('crypto'),
     async = require('async');
 
-function makeTree(uri, parent, li) {
+function makeTree(path, parent, li) {
   var node = [];
 
   li.find('a').forEach(function(a) {
     node[0] = a.text()? a.text() : '';
     node[1] = a.attr('href') ? a.attr('href').value() : '';
   });
-  node[2] = uri;
+  node[2] = path;
   node[3] = [];
   parent.push(node);
 
   var children = li.find('ul/li');
   if (children.length > 0) {
     children.forEach(function(child) {
-      makeTree(uri, node[3], child);
+      makeTree(path, node[3], child);
     });
   }
 }
+
+mkdirp.sync('tmp', parseInt('744', 8));
 
 console.time('processTime');
 cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
@@ -47,23 +49,29 @@ cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
         return next(err);
       }
 
-      var doc = libxml.parseHtmlString(src);
+      var doc = libxml.parseHtmlString(src),
+          path = url.parse(uri).pathname,
+          lists = doc.find("//div[@id='toc']/ul/li");
 
-      var path = url.parse(uri).pathname;
-      doc.find("//div[@id='toc']/ul/li").forEach(function(li) {
-        makeTree(path, root, li);
-      });
+      if (lists.length > 0) {
+        lists.forEach(function(li) {
+          makeTree(path, root, li);
+        });
+      } else {
+        root.push(['', '', path, []]);
+      }
 
       next();
     });
   }, function(err) {
-    console.log(util.inspect(root, false, 4));
     console.timeEnd('processTime');
 
     if (err) {
       console.log(err.message);
       process.exit(1);
     } else {
+      console.log(util.inspect(root, false, 4));
+      fs.writeFileSync('tmp/index.json', JSON.stringify(root, true));
       console.log('done');
       process.exit(0);
     }

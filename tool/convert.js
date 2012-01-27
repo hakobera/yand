@@ -27,8 +27,8 @@ mkdirp.sync('htdocs/converted', parseInt('744', 8));
 console.time('processTime');
 
 cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
-  async.forEach(keys, function(key, next) {
-    cache.get(key, function(err, src) {
+  async.forEach(keys, function(uri, next) {
+    cache.get(uri, function(err, src) {
       if (err) {
         return next(err);
       }
@@ -42,7 +42,7 @@ cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
         e.remove();
       });
 
-      var path = url.parse(key).pathname;
+      var path = url.parse(uri).pathname;
 
       var title = path.replace(/^\/en\/JavaScript\/Reference\//, '').replace(/^[^/]+\//, '').replace(/\//g, '.').replace(/_/g, ' ');
       if (path == '/docs/latest/api/index.html') {
@@ -59,7 +59,7 @@ cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
 
       var md5 = crypto.createHash('md5');
       md5.update(path);
-      var ofname = 'htdocs/converted/' + md5.digest('hex');
+      var ofname = 'public/converted/' + md5.digest('hex');
 
       console.log('writing ' + ofname);
       fs.writeFileSync(ofname, doc.toString());

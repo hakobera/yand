@@ -1,0 +1,323 @@
+/** http://nodejs.org/docs/latest/api/assets/style.css */
+/*--------------------- Layout and Typography ----------------------------*/
+a {
+  color: #690;
+  text-decoration: underline;
+}
+  a:visited {
+    color: #46483e;
+    text-decoration: underline;
+  }
+  a:hover, a:focus {
+    text-decoration: none;
+  }
+
+    code a:hover {
+      background: none;
+      color: #b950b7;
+    }
+
+#changelog #gtoc {
+  display: none;
+}
+
+#gtoc p {
+  margin:0;
+  font-size:18px;
+  line-height: 30px;
+}
+
+#gtoc a {
+  font-family: Georgia, FreeSerif, Times, serif;
+  text-decoration: none;
+  color: #46483e;
+}
+
+#gtoc a:hover {
+    color: #669900;
+    text-decoration: underline;
+}
+
+.notice {
+  display: block;
+  padding: 1em;
+  margin: 1.4667em 0 2.9334em;
+  background:#FFF6BF;
+  color:#514721;
+  border:1px solid #FFD324;
+}
+  .notice p {
+    margin: 0;
+  }
+
+ul.plain {
+  list-style: none;
+}
+
+abbr {
+  border-bottom: 1px dotted #454545;
+}
+
+p {
+  margin: 0 0 1.4667em 0;
+  position: relative;
+  text-rendering: optimizeLegibility;
+}
+
+.apidoc p {
+  font-size: 15px;
+  line-height: 22px;
+  color: #000;
+  font-family: Georgia, FreeSerif, Times, serif;
+}
+
+ol, ul, dl {
+  margin: 0 0 1em 0;
+  padding: 0;
+}
+
+ol ul, ol ol, ol dl,
+ul ul, ul ol, ul dl,
+dl ul, dl ol, dl dl {
+  margin-bottom: 0;
+}
+
+ol p:first-child, ul p:first-child, dl p:first-child {
+  margin-bottom: 0;
+}
+
+ul, ol {
+  margin-left: 2em;
+}
+
+
+dl dt {
+  position: relative;
+  margin: 1.5em 0 0;
+}
+
+dl dd {
+  position: relative;
+  margin: 0 1em 0;
+}
+
+dd + dt.pre {
+  margin-top: 1.6em;
+}
+
+  pre, tt, code {
+    font-size: 14px;
+    line-height: 1.5438em;
+    font-family: Monaco, Consolas, "Lucida Console", monospace;
+    margin: 0; padding: 0;
+  }
+
+  .pre {
+    font-family: Monaco, Consolas, "Lucida Console", monospace;
+    line-height: 1.5438em;
+    font-size: 0.95em;
+  }
+
+  pre {
+    padding: 1em 1.6em 1em 1.2em;
+    vertical-align: top;
+    background: #f8f8f8;
+    border: 1px solid #e8e8e8;
+    border-width: 1px 1px 1px 6px;
+    margin: -0.5em 0 1.1em;
+    overflow-x:auto;
+  }
+
+  pre + h3 {
+    margin-top: 2.225em;
+  }
+
+code.pre {
+  white-space: pre;
+}
+
+#intro {
+    width: 775px;
+    margin: 0 auto;
+    text-align: center;
+	color: #d2d8ba;
+
+  /* preload platform-icons.png */
+  background-image: url(platform-icons.png);
+  background-repeat: no-repeat;
+  background-position: -999em -999em;
+}
+
+#intro.interior #logo {
+    margin-left: -298px;
+    border:0;
+}
+
+hr {
+  background: none;
+  border: medium none;
+  border-bottom: 1px solid #ccc;
+  margin: 1em 0;
+}
+
+#toc {
+  font-size:15px;
+  line-height:1.5em;
+  line-height: 22px;
+  padding-top:4px;
+}
+
+  #toc h2 {
+    font-size: 15px;
+    line-height: 21px;
+    margin: 0 0 0.5em;
+  }
+
+  #toc h2 a {
+    float: right;
+  }
+
+  #toc hr {
+    margin: 1em 0 2em;
+  }
+
+  #toc ul {
+    font-family: Georgia, FreeSerif, Times, serif;
+  }
+
+  #toc ul a {
+    text-decoration:none;
+    border-bottom:1px dotted #690;
+  }
+  #toc ul a:hover, #toc ul a:focus {
+    border-bottom:1px dotted #fff;
+    color:#000;
+  }
+
+
+p tt, p code {
+  background: #f8f8ff;
+  border: 1px solid #dedede;
+  padding: 0 0.2em;
+}
+
+a.totop {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font-weight: bold;
+  text-indent: -9999999px;
+  background: url(anchor.png) no-repeat top left;
+  margin-right: 7px;
+  display: block;
+  width: 13px;
+  border-bottom: 1px solid #cccccc;
+}
+
+a.anchor {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font-weight: bold;
+  text-indent: -9999999px;
+  background: url(anchor.png) no-repeat top right;
+  display: block;
+  width: 13px;
+  border-bottom: 1px solid #cccccc;
+}
+#footer {
+    width: 942px;
+    margin: 150px auto 55px auto;
+    padding:0;
+}
+
+#footer p {
+    font-size: 11px;
+    line-height:1em;
+    padding: 0 0 0 195px;
+    color: #666;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+}
+
+#footer a {
+  text-decoration:none;
+  border:none;
+  color: #690;
+}
+#footer a:hover {
+  color:#000;
+}
+
+#footer p a {
+    border-bottom:1px dotted #690;
+    color: #878b78;
+}
+
+#footer ul {
+    background: url(footer-logo-alt.png) left 17px no-repeat;
+    padding: 23px 0 0 195px;
+    height: 26px;
+    margin-left: -1px;
+    border-top: 1px solid #626557;
+}
+
+#footer ul li {
+    list-style-type: none;
+    float: left;
+    font-size: 12px;
+    margin:0!important;
+    padding:0;
+    height: 12px;
+}
+
+#footer ul li a {
+    margin: 0;
+    padding: 0 6px 0 0;
+    display: block;
+    height:12px;
+    line-height:12px;
+}
+
+#footer ul li + li {
+    margin-left: 3px;
+}
+
+#footer ul li + li a {
+    padding: 0 6px 0 6px;
+    border-left: 1px solid #878b78;
+}
+
+#footer ul li a.twitter  {
+    background: url(twitter-bird.png) no-repeat 5px 0px;
+    padding-left: 25px;
+}
+
+/* simpler clearfix */
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+
+/** http://nodejs.org/docs/latest/api/assets/sh.css */
+.sh_sourceCode {
+  font-weight: normal;
+  font-style: normal;
+}
+
+.sh_sourceCode .sh_symbol , .sh_sourceCode .sh_cbracket {
+  color: #333;
+}
+
+.sh_sourceCode .sh_keyword {
+  color: #c96;
+}
+
+.sh_sourceCode .sh_string, .sh_sourceCode .sh_regexp, .sh_sourceCode .sh_number,
+.sh_sourceCode .sh_specialchar
+{
+  color: #690;
+}
+
+.sh_sourceCode .sh_comment {
+  color: #666;
+}
