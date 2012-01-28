@@ -53,6 +53,25 @@ var yand = {
       self.listClose($(this).closest('.category'));
     });
 
+    var ua = navigator.userAgent;
+    if (ua.indexOf('Mobile') !== -1 && ua.indexOf('Safari')) {
+      self.isMobile = true;
+
+      var height = $(parent.window).innerHeight() - 30;
+      $('#navigation').css({
+        'height': height,
+        'overflow-y': 'scroll'
+      });
+    }
+
+    if (Modernizr.history) {
+      window.parent.onpopstate = function(event) {
+        console.log(event);
+        var href = event.state;
+        self.linkOpen(href, false);
+      };
+    }
+
     var s = window.parent.location.search.match(/\?q=([^&]+)/);
     if (s) {
       s = decodeURIComponent(s[1]).replace(/\+/g, ' ');
@@ -67,17 +86,6 @@ var yand = {
       }
     } else {
       self.linkOpen('top.html');
-    }
-
-    var ua = navigator.userAgent;
-    if (ua.indexOf('Mobile') !== -1 && ua.indexOf('Safari')) {
-      self.isMobile = true;
-
-      var height = $(parent.window).innerHeight() - 30;
-      $('#navigation').css({
-        'height': height,
-        'overflow-y': 'scroll'
-      });
     }
   },
 
@@ -151,16 +159,20 @@ var yand = {
     li.addClass('close').children('ul').hide()
   },
 
-  linkOpen: function(link) {
+  linkOpen: function(link, saveState) {
     var self = this;
 
     var href = (typeof link === 'string' ? link : link.attr('href')),
-        docwin = parent.docwin;
+        saveState = (saveState != undefined) ? saveState : true,
+        docwin = parent.docwin,
+        docwinDoc = docwin.document;
 
-    $('#doc', $(docwin.document)).load(href, function() {
+    $('#doc', $(docwinDoc)).load(href, function() {
+      var _this = $(this);
+
       if (self.isMobile) {
         var height = $(parent.window).innerHeight();
-        $(this).css({
+        _this.css({
           'height': height,
           'overflow-y': 'scroll'
         });
@@ -168,8 +180,12 @@ var yand = {
 
       var i = href.lastIndexOf('#');
       if (i !== -1) {
-        var anchor = href.substr(href.lastIndexOf('#'));
-        docwin.location.href = 'doc.html' + anchor;
+        var anchor = href.substring(i);
+        docwin.scrollTo(0, _this.find(anchor.replace(/\./g, '\\.')).position().top + 10);
+
+        if (Modernizr.history && saveState) {
+          window.parent.history.pushState(href, null, anchor);
+        }
       }
     });
   }
