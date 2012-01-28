@@ -72,11 +72,15 @@ var yand = {
       };
     }
 
-    var s = window.parent.location.search.match(/\?q=([^&]+)/);
-    if (s) {
-      s = decodeURIComponent(s[1]).replace(/\+/g, ' ');
-      if (s.length > 0) {
-        search.val(s);
+    var query = window.parent.location.search,
+        hash = window.parent.location.hash,
+        q = query.match(/\?q=([^&]+)/),
+        p = query.match(/\?p=([^&]+)/);
+
+    if (q) {
+      q = decodeURIComponent(q[1]).replace(/\+/g, ' ');
+      if (q.length > 0) {
+        search.val(q);
         self.searchIndex(search, indexList, results);
 
         var links = $('li > a', results);
@@ -84,8 +88,10 @@ var yand = {
           self.linkOpen($(links[0]));
         }
       }
+    } else if (p && p[1]) {
+      self.linkOpen(p[1] + '#' + hash);
     } else {
-      self.linkOpen('top.html');
+      self.linkOpen('top.html', false);
     }
   },
 
@@ -181,10 +187,18 @@ var yand = {
       var i = href.lastIndexOf('#');
       if (i !== -1) {
         var anchor = href.substring(i);
-        docwin.scrollTo(0, _this.find(anchor.replace(/\./g, '\\.')).position().top + 10);
+
+        if (self.isMobile) {
+          _this.scrollTop(0);
+          var top = _this.find(anchor.replace(/\./g, '\\.')).position().top + 10;
+          _this.scrollTop(top);
+        } else {
+          var top = _this.find(anchor.replace(/\./g, '\\.')).position().top + 10;
+          docwin.scrollTo(0, top);
+        }
 
         if (Modernizr.history && saveState) {
-          window.parent.history.pushState(href, null, anchor);
+          window.parent.history.pushState(href, null, '?p=' + href);
         }
       }
     });
