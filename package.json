@@ -1,6 +1,7 @@
 {
   "name": "yand",
-  "version": "0.0.1", 
+  "description": "Yet Another Node.js Documentation",
+  "version": "0.1.0",
   "dependencies": {
     "connect": "1.x",
     "stylus": "0.22.6"
