@@ -22,7 +22,7 @@ var yand = {
 
     search.keyup(function(event) {
       if ($.inArray(event.keyCode, keys.array) !== -1) {
-        self.handleKey(indexList, keys, event.keyCode);
+        self.handleKey(keys, event.keyCode);
       } else {
         self.searchIndex(search, indexList, results);
       }
@@ -81,32 +81,37 @@ var yand = {
     }
   },
 
-  handleKey: function(indexList, keys, key) {
+  handleKey: function(keys, key) {
     var self = this;
 
-    var selected = $('.selected:visible');
-    if(selected.length === 0) {
-      selected = $('li:first', '#indexList');
-      selected.addClass('selected');
-    }
+    var results = $('#results');
+    if (results.is(':visible')) {
+      var selected = $('.selected:visible');
+      if(selected.length) {
+        if (key == keys.up && selected.prev().length) {
+          selected.removeClass('selected').prev().addClass('selected');
+        }
+        if (key == keys.down && selected.next().length) {
+          selected.removeClass('selected').next().addClass('selected');
+        }
+        if (key == keys.enter) {
+          var href = selected.find('a:first').attr('href');
+          self.linkOpen(selected.find('a:first'));
+        }
 
-    if (key == keys.up && selected.prev().length) {
-      selected.removeClass('selected').prev().addClass('selected');
-    }
-    if (key == keys.down && selected.next().length) {
-      selected.removeClass('selected').next().addClass('selected');
-    }
-    if (key == keys.enter) {
-      var href = selected.find('a:first').attr('href');
-      self.linkOpen(selected.find('a:first'));
-    }
+        if (key == keys.right) {
+          self.listOpen(selected);
+        }
 
-    if (key == keys.right) {
-      self.listOpen(selected);
-    }
-
-    if (key == keys.left) {
-      self.listClose(selected);
+        if (key == keys.left) {
+          self.listClose(selected);
+        }
+      } else {
+        if (key == keys.down) {
+          selected = $('li:first', results);
+          selected.addClass('selected');
+        }
+      }
     }
   },
 
@@ -129,6 +134,9 @@ var yand = {
           results.append(li);
         }
       });
+
+      $('.selected', indexList).removeClass('selected');
+      $('li:first', results).addClass('selected');
     } else {
       results.hide();
       indexList.show();
