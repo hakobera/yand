@@ -22,7 +22,7 @@ libxml.Element.prototype.addClass = function(klass) {
   }
 };
 
-mkdirp.sync('htdocs/converted', parseInt('744', 8));
+mkdirp.sync('public/docs', parseInt('744', 8));
 
 console.time('processTime');
 
@@ -34,35 +34,15 @@ cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
       }
 
       var doc = libxml.parseHtmlString(src);
-      doc.search('script, header, #intro, #column2, footer, head, noscript').forEach(function (e) {
+      doc.search('head, script, header, #intro, #column2, #toc, .top, .mark, #footer, footer, noscript').forEach(function (e) {
         e.remove();
       });
 
-      doc.find("//div[@id='footer']/ul").forEach(function(e) {
-        e.remove();
-      });
+      var path = url.parse(uri).pathname,
+          filePath = 'public/docs' + path.substr(path.lastIndexOf('/'));
 
-      var path = url.parse(uri).pathname;
-
-      var title = path.replace(/^\/en\/JavaScript\/Reference\//, '').replace(/^[^/]+\//, '').replace(/\//g, '.').replace(/_/g, ' ');
-      if (path == '/docs/latest/api/index.html') {
-          title = 'Top page';
-      }
-      doc.search('#title').forEach(function (e) {
-        e.text(title)
-        e.addClass('entry-title roundTop');
-      });
-      doc.search('#content').forEach(function (e) {
-        e.attr('id').remove(); // dup with system id
-        e.addClass('entry-content');
-      });
-
-      var md5 = crypto.createHash('md5');
-      md5.update(path);
-      var ofname = 'public/converted/' + md5.digest('hex');
-
-      console.log('writing ' + ofname);
-      fs.writeFileSync(ofname, doc.toString());
+      console.log('writing ' + filePath);
+      fs.writeFileSync(filePath, doc.toString());
 
       next();
     });

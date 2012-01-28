@@ -3,6 +3,11 @@ build:
 	node tool/convert.js
 	node tool/mkindex.js
 	node tool/mknavigation.js
+	tool/get_assets.sh
+	uglifyjs -nc public/javascripts/yand.js > public/javascripts/yand.min.js
+
+uglify:
+	uglifyjs -nc public/javascripts/yand.js > public/javascripts/yand.min.js
 
 test:
 	./node_modules/.bin/mocha \

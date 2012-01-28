@@ -1,0 +1,101 @@
+#panel
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  background: #FFF
+  z-index: 2
+  font-family: "Helvetica Neue", "Arial", sans-serif
+
+#search
+  position: fixed
+  width: 100%
+  padding: 3px 0
+  background-color: #CFCFCF
+  border-bottom: 1px solid #000
+  z-index: 10
+
+  .input
+    margin: 0 5px
+
+    input
+      width: 100%
+
+#navigation
+  position: absolute
+  top: 30px
+  width: 220px
+  font-size: 12px
+  overflow-x: hidden
+
+  a
+    color: #333333
+    text-decoration: none
+
+  a:hover
+    color: #000000
+
+  .selected
+    background-color: #8CC84B
+
+  li
+    span:hover
+      background-color: #CFCFCF
+
+#indexList
+  width: 100%
+  cursor: pointer
+
+  .category span
+    display: block;
+    padding: 7px 0;
+    background-image: url('../images/arrow.png')
+    background-position-x: 0
+    background-position-y: -54px
+    background-repeat: no-repeat
+
+  .category.close
+    span
+      background-position-y: 0
+
+    span:hover
+      background-position-y: -27px
+
+    ul
+      display: none;
+
+  .sub span
+    background-image: none
+
+
+  .level1 span
+    padding-left: 25px
+
+  .level2 span
+    padding-left: 45px
+    background-position-x: 20px;
+
+  .level3 span
+    padding-left: 65px
+    background-position-x: 40px;
+
+  .level4 span
+    padding-left: 85px
+    background-position-x: 60px;
+
+  .level5 span
+    padding-left: 105px
+    background-position-x: 80px;
+
+#results
+  li
+    padding: 7px 0 7px 10px
+
+    a
+      display: block
+      width: 100%
+      height: 100%
+
+  li:hover
+    background-color: #CFCFCF

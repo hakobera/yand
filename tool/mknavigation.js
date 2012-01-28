@@ -14,7 +14,8 @@ function renderTree(node, level) {
     hasChild = true
   }
 
-  var html = '<li class="' + (hasChild ? 'category' : 'sub') +' level' + level + '"><a href="' + node[2] + node[1] + '"><span class="searchable">' + escapeHTML(node[0]);
+  var html = '<li class="' + (hasChild ? 'category' : 'sub') +' level' + level + '">';
+  html += '<a href="/docs' + node[2] + node[1] + '" target="docwin"><span class="searchable">' + escapeHTML(node[0]);
   html += '</span></a>';
 
   if (hasChild) {
@@ -37,10 +38,9 @@ var categories = [],
     items = require('../tmp/index'),
     uri = 'http://nodejs.org/docs/latest/api/index.html',
     page = [
-        "<!DOCTYPE html>",
-        "<html lang='en'><head><meta http-equiv='content-type' content='text/html; charset=UTF-8' /></head><body>",
-        "<div id='search'><input type='search' placeholder='Search' autosave='searchdoc' results='10' id='search-field' autocomplete='off' /></div>",
-        "<ul id='static-list'>"
+        '<!DOCTYPE html>',
+        '<html><head><meta charset="utf-8"/></head><body>',
+        '<ul id="indexList">'
       ].join("\n");
 
 cache.get(uri, function(err, src) {
@@ -57,11 +57,13 @@ cache.get(uri, function(err, src) {
     if (!href) {
       return;
     }
-    var path = '' + url.resolve(uri, href.value().replace(/#.*/,  '')).toString();
+
+    var fullPath = '' + url.resolve(uri, href.value().replace(/#.*/,  '')).toString(),
+        path = url.parse(fullPath).pathname;
 
     var category = {
       text: a.text(),
-      path: url.parse(path).pathname
+      path: path.substr(path.lastIndexOf('/'))
     };
     categories.push(category);
   });
@@ -75,7 +77,10 @@ cache.get(uri, function(err, src) {
     categoryItems[key].push(item);
   });
 
+  console.log(categoryItems);
+
   categories.forEach(function(category) {
+    console.log(category.path);
     var items = categoryItems[category.path];
 
     page += '<li class="category level1"><span>' + escapeHTML(category.text) + '</span><ul>';
@@ -84,7 +89,7 @@ cache.get(uri, function(err, src) {
       page += renderTree(item, 2);
     });
 
-    page += '</ul></li>';
+    page += '</ul></li>\n';
   });
 
   page += '</ul></body></html>\n';

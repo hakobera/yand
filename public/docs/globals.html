@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE html>
+<html lang="en"><body class="alt apidoc">
+    
+    <div id="content" class="clearfix">
+        
+
+        <div id="column1" class="interior">
+        
+<h2 id="global_Objects">Global Objects <span/></h2>
+
+<p>These objects are available in all modules. Some of these objects aren't
+actually in the global scope but in the module scope - this will be noted.</p>
+
+<h3 id="global">global <span/></h3>
+
+<p>The global namespace object.</p>
+
+<p>In browsers, the top-level scope is the global scope. That means that in
+browsers if you're in the global scope <code>var something</code> will define a global
+variable. In Node this is different. The top-level scope is not the global
+scope; <code>var something</code> inside a Node module will be local to that module.</p>
+
+<h3 id="process">process <span/></h3>
+
+<p>The process object. See the <a href="process.html#process">process object</a> section.</p>
+
+<h3 id="console">console <span/></h3>
+
+<p>Used to print to stdout and stderr. See the <a href="stdio.html">stdio</a> section.</p>
+
+<h3 id="buffer">Buffer <span/></h3>
+
+<p>Used to handle binary data. See the <a href="buffers.html">buffers</a> section.</p>
+
+<h3 id="require">require() <span/></h3>
+
+<p>To require modules. See the <a href="modules.html#modules">Modules</a> section.
+<code>require</code> isn't actually a global but rather local to each module.</p>
+
+<h3 id="require.resolve">require.resolve() <span/></h3>
+
+<p>Use the internal <code>require()</code> machinery to look up the location of a module,
+but rather than loading the module, just return the resolved filename.</p>
+
+<h3 id="require.cache">require.cache <span/></h3>
+
+<p>Modules are cached in this object when they are required. By deleting a key
+value from this object, the next <code>require</code> will reload the module.</p>
+
+<h3 id="__filename">__filename <span/></h3>
+
+<p>The filename of the code being executed.  This is the resolved absolute path
+of this code file.  For a main program this is not necessarily the same
+filename used in the command line.  The value inside a module is the path
+to that module file.</p>
+
+<p>Example: running <code>node example.js</code> from <code>/Users/mjr</code></p>
+
+<pre><code>console.log(__filename);
+// /Users/mjr/example.js</code></pre>
+
+<p><code>__filename</code> isn't actually a global but rather local to each module.</p>
+
+<h3 id="__dirname">__dirname <span/></h3>
+
+<p>The name of the directory that the currently executing script resides in.</p>
+
+<p>Example: running <code>node example.js</code> from <code>/Users/mjr</code></p>
+
+<pre><code>console.log(__dirname);
+// /Users/mjr</code></pre>
+
+<p><code>__dirname</code> isn't actually a global but rather local to each module.</p>
+
+<h3 id="module">module <span/></h3>
+
+<p>A reference to the current module. In particular
+<code>module.exports</code> is the same as the <code>exports</code> object. See <code>src/node.js</code>
+for more information.
+<code>module</code> isn't actually a global but rather local to each module.</p>
+
+<h3 id="exports">exports <span/></h3>
+
+<p>An object which is shared between all instances of the current module and
+made accessible through <code>require()</code>.
+<code>exports</code> is the same as the <code>module.exports</code> object. See <code>src/node.js</code>
+for more information.
+<code>exports</code> isn't actually a global but rather local to each module.</p>
+
+<h3 id="setTimeout">setTimeout(cb, ms) <span/></h3>
+
+<h3 id="clearTimeout">clearTimeout(t) <span/></h3>
+
+<h3 id="setInterval">setInterval(cb, ms) <span/></h3>
+
+<h3 id="clearInterval">clearInterval(t) <span/></h3>
+
+<p>The timer functions are global variables. See the <a href="timers.html">timers</a> section.</p>
+        </div>
+    </div>
+    
+    
+  </body></html>

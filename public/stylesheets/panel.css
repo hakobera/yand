@@ -1,0 +1,98 @@
+#panel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 2;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+}
+#search {
+  position: fixed;
+  width: 100%;
+  padding: 3px 0;
+  background-color: #cfcfcf;
+  border-bottom: 1px solid #000;
+  z-index: 10;
+}
+#search .input {
+  margin: 0 5px;
+}
+#search .input input {
+  width: 100%;
+}
+#navigation {
+  position: absolute;
+  top: 30px;
+  width: 220px;
+  font-size: 12px;
+  overflow-x: hidden;
+}
+#navigation a {
+  color: #333;
+  text-decoration: none;
+}
+#navigation a:hover {
+  color: #000;
+}
+#navigation .selected {
+  background-color: #8cc84b;
+}
+#navigation li span:hover {
+  background-color: #cfcfcf;
+}
+#indexList {
+  width: 100%;
+  cursor: pointer;
+}
+#indexList .category span {
+  display: block;
+  padding: 7px 0;
+  background-image: url("../images/arrow.png");
+  background-position-x: 0;
+  background-position-y: -54px;
+  background-repeat: no-repeat;
+}
+#indexList .category.close span {
+  background-position-y: 0;
+}
+#indexList .category.close span:hover {
+  background-position-y: -27px;
+}
+#indexList .category.close ul {
+  display: none;
+}
+#indexList .sub span {
+  background-image: none;
+}
+#indexList .level1 span {
+  padding-left: 25px;
+}
+#indexList .level2 span {
+  padding-left: 45px;
+  background-position-x: 20px;
+}
+#indexList .level3 span {
+  padding-left: 65px;
+  background-position-x: 40px;
+}
+#indexList .level4 span {
+  padding-left: 85px;
+  background-position-x: 60px;
+}
+#indexList .level5 span {
+  padding-left: 105px;
+  background-position-x: 80px;
+}
+#results li {
+  padding: 7px 0 7px 10px;
+}
+#results li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#results li:hover {
+  background-color: #cfcfcf;
+}

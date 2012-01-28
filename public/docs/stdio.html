@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE html>
+<html lang="en"><body class="alt apidoc">
+    
+    <div id="content" class="clearfix">
+        
+
+        <div id="column1" class="interior">
+        
+<h2 id="console">console <span/></h2>
+
+<p>For printing to stdout and stderr.  Similar to the console object functions
+provided by most web browsers, here the output is sent to stdout or stderr.</p>
+
+<h3 id="console.log">console.log() <span/></h3>
+
+<p>Prints to stdout with newline. This function can take multiple arguments in a
+<code>printf()</code>-like way. Example:</p>
+
+<pre><code>console.log('count: %d', count);</code></pre>
+
+<p>If formatting elements are not found in the first string then <code>util.inspect</code>
+is used on each argument.
+See <a href="util.html#util.format">util.format()</a> for more information.</p>
+
+<h3 id="console.info">console.info() <span/></h3>
+
+<p>Same as <code>console.log</code>.</p>
+
+<h3 id="console.warn">console.warn() <span/></h3>
+
+<h3 id="console.error">console.error() <span/></h3>
+
+<p>Same as <code>console.log</code> but prints to stderr.</p>
+
+<h3 id="console.dir">console.dir(obj) <span/></h3>
+
+<p>Uses <code>util.inspect</code> on <code>obj</code> and prints resulting string to stderr.</p>
+
+<h3 id="console.time">console.time(label) <span/></h3>
+
+<p>Mark a time.</p>
+
+<h3 id="console.timeEnd">console.timeEnd(label) <span/></h3>
+
+<p>Finish timer, record output. Example</p>
+
+<pre><code>console.time('100-elements');
+for (var i = 0; i &lt; 100; i++) {
+  ;
+}
+console.timeEnd('100-elements');</code></pre>
+
+<h3 id="console.trace">console.trace() <span/></h3>
+
+<p>Print a stack trace to stderr of the current position.</p>
+
+<h3 id="console.assert">console.assert() <span/></h3>
+
+<p>Same as <code>assert.ok()</code>.</p>
+        </div>
+    </div>
+    
+    
+  </body></html>

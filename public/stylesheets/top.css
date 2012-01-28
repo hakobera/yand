@@ -1,0 +1,44 @@
+header {
+  background-color: #8cc84b;
+  padding: 20px 10px;
+}
+header h1 {
+  color: #fff;
+  font-size: 20px;
+}
+#content h2 {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}
+#content h2 span.name {
+  font-size: 18px;
+}
+#content h2 span.returns {
+  padding-left: 12px;
+  color: #666;
+  font-size: 12px;
+}
+#content .entry {
+  padding: 20px 40px 20px 40px;
+}
+#content .entry div.longdesc {
+  font-size: 12px;
+  line-height: 18px;
+}
+#content .entry div.longdesc p {
+  margin-bottom: 1em;
+}
+#content .entry pre {
+  margin: 0;
+  padding: 1em 1.6em 1em 1.2em;
+  vertical-align: top;
+  background: #f8f8f8;
+  border: 1px solid #e8e8e8;
+  border-width: 1px 1px 1px 6px;
+  margin: -0.5em 0 1.1em;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.5438em;
+  font-family: Monaco, Consolas, "Lucida Console", monospace;
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE html>
+<html lang="en"><body class="alt apidoc">
+    
+    <div id="content" class="clearfix">
+        
+
+        <div id="column1" class="interior">
+        
+<h2 id="query_String">Query String <span/></h2>
+
+<p>This module provides utilities for dealing with query strings.
+It provides the following methods:</p>
+
+<h3 id="querystring.stringify">querystring.stringify(obj, [sep], [eq]) <span/></h3>
+
+<p>Serialize an object to a query string.
+Optionally override the default separator (<code>'&amp;'</code>) and assignment (<code>'='</code>)
+characters.</p>
+
+<p>Example:</p>
+
+<pre><code>querystring.stringify({ foo: 'bar', baz: ['qux', 'quux'], corge: '' })
+// returns
+'foo=bar&amp;baz=qux&amp;baz=quux&amp;corge='
+
+querystring.stringify({foo: 'bar', baz: 'qux'}, ';', ':')
+// returns
+'foo:bar;baz:qux'</code></pre>
+
+<h3 id="querystring.parse">querystring.parse(str, [sep], [eq]) <span/></h3>
+
+<p>Deserialize a query string to an object.
+Optionally override the default separator (<code>'&amp;'</code>) and assignment (<code>'='</code>)
+characters.</p>
+
+<p>Example:</p>
+
+<pre><code>querystring.parse('foo=bar&amp;baz=qux&amp;baz=quux&amp;corge')
+// returns
+{ foo: 'bar', baz: ['qux', 'quux'], corge: '' }</code></pre>
+
+<h3 id="querystring.escape">querystring.escape <span/></h3>
+
+<p>The escape function used by <code>querystring.stringify</code>,
+provided so that it could be overridden if necessary.</p>
+
+<h3 id="querystring.unescape">querystring.unescape <span/></h3>
+
+<p>The unescape function used by <code>querystring.parse</code>,
+provided so that it could be overridden if necessary.</p>
+        </div>
+    </div>
+    
+    
+  </body></html>

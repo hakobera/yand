@@ -1,78 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <title>YAND - Yet Another Node Docs</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/reset.css"/>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"/>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="/javascripts/yand.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="shortcut icon" href="/images/favicon.png" />
+  <title>YAND - Yet Another Node.js Documentation</title>
 </head>
-<body>
-  <div id="navigation"><div id="loader">&nbsp;</div></div>
-
-  <div id="content">
-        <div class="entry-title">
-          <h1>YAND - Yet Another Node.js Documentation For Node.js v0.6.9</h1>
-        </div>
-
-        <div class="entry">
-          <h2><span class="name">What is YAND?</span></h2>
-          <div class="longdesc">
-            <p>
-              Yand is a yet another Node.js documentation viewer. <br/>
-              This document is made from <a href="http://nodejs.org/docs/latest/api/index.html">official Node.js documentaion</a>.
-            </p>
-          </div>
-        </div>
-
-        <div class="entry">
-          <h2><span class="name">YAND offline version</span><span class="returns">Documentation for the road.</span></h2>
-          <div class="longdesc">
-            <p><a href="yand-latest.zip">Download HTML Version</a>. Documentation for Node.js v0.6.9 - 1.8MB - 2012/01/31</p>
-          </div>
-        </div>
-
-        <div class="entry">
-          <h2><span class="name">Keyboard Usage</span><span class="returns">Speed it up.</span></h2>
-          <div class="longdesc">
-            <p>
-              The keys are working if the search field has focus or your mouse cursor is in the navigation area.
-              ESC key is global.
-            </p>
-  <pre><code>UP      - Previous category / Previous item
-DOWN    - Next category / Next item
-ENTER   - Open category / Load selected item
-ESC     - Clear search field and set focus</code></pre>
-          </div>
-        </div>
-
-        <div class="entry">
-          <h2><span class="name">Credits</span><span class="returns">And props.</span></h2>
-          <div class="longdesc">
-            <p>
-              <a href="http://nodejs.org/">Node.js</a>, <a href="http://nodejs.org/docs/latest/api/index.html/">Node.js Manual & Documentation</a>,
-              <a href="http://railsapi.com/">Rails API</a>,
-              <a href="http://jqapi.com/">jQAPI</a>,
-              <a href="http://jsref.64p.org/">JSRef</a>
-            </p>
-          </div>
-        </div>
-
-        <div class="entry">
-          <h2><span class="name">License</span></h2>
-          <div class="longdesc">
-            <p>
-              Node.js and its documentation is licensed under
-              <a href="https://raw.github.com/joyent/node/master/LICENSE">the MIT license</a><br/>
-              YAND is licensed under <a href="LICENSE">the MIT license</a>.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <ul id="topnav">
-        <li><a href="http://yand.jp/" id="home">Home</a></li>
-      </ul>
-</body>
+<frameset cols="220,*" frameborder="1" border="1" bordercolor="#999999" framespacing="1">
+  <frame src="panel.html" title="Search" name="panel" />
+  <frame src="doc.html" name="docwin" />
+</frameset>
 </html>

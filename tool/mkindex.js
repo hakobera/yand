@@ -10,7 +10,6 @@ var fs = require('fs'),
     cache = require('../lib/cache'),
     url = require('url'),
     mkdirp = require('mkdirp'),
-    crypto = require('crypto'),
     async = require('async');
 
 function makeTree(path, parent, li) {
@@ -50,7 +49,8 @@ cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
       }
 
       var doc = libxml.parseHtmlString(src),
-          path = url.parse(uri).pathname,
+          fullPath = url.parse(uri).pathname,
+          path = fullPath.substr(fullPath.lastIndexOf('/')),
           lists = doc.find("//div[@id='toc']/ul/li");
 
       if (lists.length > 0) {
