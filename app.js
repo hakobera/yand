@@ -8,14 +8,22 @@ function compile(str, path) {
     .set('compress', true);
 }
 
-var server = connect(
-  stylus.middleware({
-    src: __dirname + '/public',
-    compile: compile
-  }),
-  connect.static(__dirname + '/public')
-);
+var server = null;
+if (process.env.NODE_ENV === 'production') {
+  server = connect(
+    connect.staticCache(),
+    connect.static(__dirname + '/public')
+  );
+} else {
+  server = connect(
+    stylus.middleware({
+      src: __dirname + '/public',
+      compile: compile
+    }),
+    connect.static(__dirname + '/public')
+  );
+}
 
 var port = process.env.PORT || 3000;
 server.listen(port);
-console.log('server is running at port %d', port);
+console.log('server is running at port %d in %s mode', port, process.env.NODE_ENV);
