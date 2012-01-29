@@ -47,14 +47,14 @@ zlib.unzip(buffer, function(err, buffer) {
 });</code></pre>
 
 <p>To use this module in an HTTP client or server, use the
-<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3">accept-encoding</a>
+<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3" target="_blank">accept-encoding</a>
 on requests, and the
-<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11">content-encoding</a>
+<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11" target="_blank">content-encoding</a>
 header on responses.</p>
 
 <p><strong>Note: these examples are drastically simplified to show
 the basic concept.</strong>  Zlib encoding can be expensive, and the results
-ought to be cached.  See <a href="#memory_Usage_Tuning">Memory Usage Tuning</a>
+ought to be cached.  See <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#memory_Usage_Tuning', true)">Memory Usage Tuning</a>
 below for more information on the speed/memory/compression
 tradeoffs involved in zlib usage.</p>
 
@@ -114,36 +114,36 @@ http.createServer(function(request, response) {
 
 <p>All of the constants defined in zlib.h are also defined on
 <code>require('zlib')</code>.  They are described in more detail in the zlib
-documentation.  See <a href="http://zlib.net/manual.html#Constants">http://zlib.net/manual.html#Constants</a>
+documentation.  See <a href="http://zlib.net/manual.html#Constants" target="_blank">http://zlib.net/manual.html#Constants</a>
 for more details.</p>
 
 <h3 id="zlib.createGzip">zlib.createGzip([options]) <span/></h3>
 
-<p>Returns a new <a href="#zlib.Gzip">Gzip</a> object with an <a href="#options">options</a>.</p>
+<p>Returns a new <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#zlib.Gzip', true)">Gzip</a> object with an <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#options', true)">options</a>.</p>
 
 <h3 id="zlib.createGunzip">zlib.createGunzip([options]) <span/></h3>
 
-<p>Returns a new <a href="#zlib.Gunzip">Gunzip</a> object with an <a href="#options">options</a>.</p>
+<p>Returns a new <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#zlib.Gunzip', true)">Gunzip</a> object with an <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#options', true)">options</a>.</p>
 
 <h3 id="zlib.createDeflate">zlib.createDeflate([options]) <span/></h3>
 
-<p>Returns a new <a href="#zlib.Deflate">Deflate</a> object with an <a href="#options">options</a>.</p>
+<p>Returns a new <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#zlib.Deflate', true)">Deflate</a> object with an <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#options', true)">options</a>.</p>
 
 <h3 id="zlib.createInflate">zlib.createInflate([options]) <span/></h3>
 
-<p>Returns a new <a href="#zlib.Inflate">Inflate</a> object with an <a href="#options">options</a>.</p>
+<p>Returns a new <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#zlib.Inflate', true)">Inflate</a> object with an <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#options', true)">options</a>.</p>
 
 <h3 id="zlib.createDeflateRaw">zlib.createDeflateRaw([options]) <span/></h3>
 
-<p>Returns a new <a href="#zlib.DeflateRaw">DeflateRaw</a> object with an <a href="#options">options</a>.</p>
+<p>Returns a new <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#zlib.DeflateRaw', true)">DeflateRaw</a> object with an <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#options', true)">options</a>.</p>
 
 <h3 id="zlib.createInflateRaw">zlib.createInflateRaw([options]) <span/></h3>
 
-<p>Returns a new <a href="#zlib.InflateRaw">InflateRaw</a> object with an <a href="#options">options</a>.</p>
+<p>Returns a new <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#zlib.InflateRaw', true)">InflateRaw</a> object with an <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#options', true)">options</a>.</p>
 
 <h3 id="zlib.createUnzip">zlib.createUnzip([options]) <span/></h3>
 
-<p>Returns a new <a href="#zlib.Unzip">Unzip</a> object with an <a href="#options">options</a>.</p>
+<p>Returns a new <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#zlib.Unzip', true)">Unzip</a> object with an <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/zlib.html#options', true)">options</a>.</p>
 
 <h3 id="zlib.Gzip">zlib.Gzip <span/></h3>
 
@@ -219,7 +219,7 @@ convenience methods use the default settings for all options.)</p>
 relevant when compressing, and are ignored by the decompression classes.</p>
 
 <ul><li>chunkSize (default: 16*1024)</li><li>windowBits</li><li>level (compression only)</li><li>memLevel (compression only)</li><li>strategy (compression only)</li></ul><p>See the description of <code>deflateInit2</code> and <code>inflateInit2</code> at
-<a href="http://zlib.net/manual.html#Advanced">http://zlib.net/manual.html#Advanced</a> for more information on these.</p>
+<a href="http://zlib.net/manual.html#Advanced" target="_blank">http://zlib.net/manual.html#Advanced</a> for more information on these.</p>
 
 <h3 id="memory_Usage_Tuning">Memory Usage Tuning <span/></h3>
 

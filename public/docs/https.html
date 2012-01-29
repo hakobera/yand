@@ -42,7 +42,7 @@ https.createServer(options, function (req, res) {
 <h2 id="https.request">https.request(options, callback) <span/></h2>
 
 <p>Makes a request to a secure web server.
-All options from <a href="http.html#http.request">http.request()</a> are valid.</p>
+All options from <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/http.html#http.request', true)">http.request()</a> are valid.</p>
 
 <p>Example:</p>
 
@@ -74,11 +74,11 @@ req.on('error', function(e) {
 <ul><li>host: IP or domain of host to make request to. Defaults to <code>'localhost'</code>.</li><li>port: port of host to request to. Defaults to 443.</li><li>path: Path to request. Default <code>'/'</code>.</li><li><p>method: HTTP request method. Default <code>'GET'</code>.</p></li><li><p><code>host</code>: A domain name or IP address of the server to issue the request to.
 Defaults to <code>'localhost'</code>.</p></li><li><code>hostname</code>: To support <code>url.parse()</code> <code>hostname</code> is preferred over <code>host</code></li><li><code>port</code>: Port of remote server. Defaults to 443.</li><li><code>method</code>: A string specifying the HTTP request method. Defaults to <code>'GET'</code>.</li><li><code>path</code>: Request path. Defaults to <code>'/'</code>. Should include query string if any.
 E.G. <code>'/index.html?page=12'</code></li><li><code>headers</code>: An object containing request headers.</li><li><code>auth</code>: Basic authentication i.e. <code>'user:password'</code> to compute an
-Authorization header.</li><li><code>agent</code>: Controls <a href="#https.Agent">Agent</a> behavior. When an Agent is
-used request will default to <code>Connection: keep-alive</code>. Possible values:<ul><li><code>undefined</code> (default): use <a href="#https.globalAgent">globalAgent</a> for this
+Authorization header.</li><li><code>agent</code>: Controls <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/https.html#https.Agent', true)">Agent</a> behavior. When an Agent is
+used request will default to <code>Connection: keep-alive</code>. Possible values:<ul><li><code>undefined</code> (default): use <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/https.html#https.globalAgent', true)">globalAgent</a> for this
 host and port.</li><li><code>Agent</code> object: explicitly use the passed in <code>Agent</code>.</li><li><code>false</code>: opts out of connection pooling with an Agent, defaults request to
-<code>Connection: close</code>.</li></ul></li></ul><p>The following options from <a href="tls.html#tls.connect">tls.connect()</a> can also be
-specified. However, a <a href="#https.globalAgent">globalAgent</a> silently ignores these.</p>
+<code>Connection: close</code>.</li></ul></li></ul><p>The following options from <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/tls.html#tls.connect', true)">tls.connect()</a> can also be
+specified. However, a <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/https.html#https.globalAgent', true)">globalAgent</a> silently ignores these.</p>
 
 <ul><li><code>key</code>: Private key to use for SSL. Default <code>null</code>.</li><li><code>passphrase</code>: A string of passphrase for the private key. Default <code>null</code>.</li><li><code>cert</code>: Public x509 certificate to use. Default <code>null</code>.</li><li><code>ca</code>: An authority certificate or array of authority certificates to check
 the remote host against.</li></ul><p>In order to specify these options, use a custom <code>Agent</code>.</p>
@@ -139,12 +139,12 @@ https.get({ host: 'encrypted.google.com', path: '/' }, function(res) {
 
 <h2 id="https.Agent">https.Agent <span/></h2>
 
-<p>An Agent object for HTTPS similar to <a href="http.html#http.Agent">http.Agent</a>.
-See <a href="#https.request">https.request()</a> for more information.</p>
+<p>An Agent object for HTTPS similar to <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/http.html#http.Agent', true)">http.Agent</a>.
+See <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/https.html#https.request', true)">https.request()</a> for more information.</p>
 
 <h2 id="https.globalAgent">https.globalAgent <span/></h2>
 
-<p>Global instance of <a href="#https.Agent">https.Agent</a> which is used as the default
+<p>Global instance of <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/https.html#https.Agent', true)">https.Agent</a> which is used as the default
 for all HTTPS client requests.</p>
         </div>
     </div>

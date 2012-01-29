@@ -202,40 +202,9 @@ Yand.prototype.linkOpen = function(link, saveState) {
   var self = this;
 
   var href = (typeof link === 'string' ? link : link.attr('href')),
-      saveState = (saveState != undefined) ? saveState : true,
-      docwin = parent.docwin,
-      docwinDoc = docwin.document;
+      saveState = (saveState != undefined) ? saveState : true;
 
-  $('#doc', $(docwinDoc)).load(href, function() {
-    var _this = $(this);
-
-    if (self.isMobile) {
-      var height = $(parent.window).innerHeight();
-      _this.css({
-        'height': height,
-        'overflow-y': 'scroll',
-        'overflow-x': 'hidden'
-      });
-    }
-
-    var i = href.lastIndexOf('#');
-    if (i !== -1) {
-      var anchor = href.substring(i),
-          selector = anchor.replace(/\./g, '\\.'), // anchor may include dot
-          top = _this.find(selector).position().top + 10;
-
-      if (self.isMobile) {
-        _this.scrollTop(0);
-        _this.scrollTop(top);
-      } else {
-        docwin.scrollTo(0, top);
-      }
-
-      if (Modernizr.history && saveState) {
-        window.parent.history.pushState(href, null, '?p=' + href);
-      }
-    }
-  });
+  parent.docwin.pageLoad(href, saveState);
 };
 
 $(function() {

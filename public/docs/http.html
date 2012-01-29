@@ -108,21 +108,21 @@ IPv4 address (<code>INADDR_ANY</code>).</p>
 <p>To listen to a unix socket, supply a filename instead of port and hostname.</p>
 
 <p>This function is asynchronous. The last parameter <code>callback</code> will be added as
-a listener for the <a href="net.html#event_listening_">'listening'</a> event.
-See also <a href="net.html#server.listen">net.Server.listen()</a>.</p>
+a listener for the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_listening_', true)">'listening'</a> event.
+See also <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#server.listen', true)">net.Server.listen()</a>.</p>
 
 <h3 id="server.listen">server.listen(path, [callback]) <span/></h3>
 
 <p>Start a UNIX socket server listening for connections on the given <code>path</code>.</p>
 
 <p>This function is asynchronous. The last parameter <code>callback</code> will be added as
-a listener for the <a href="net.html#event_listening_">'listening'</a> event.
-See also <a href="net.html#server.listen">net.Server.listen()</a>.</p>
+a listener for the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_listening_', true)">'listening'</a> event.
+See also <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#server.listen', true)">net.Server.listen()</a>.</p>
 
 <h3 id="server.close">server.close() <span/></h3>
 
 <p>Stops the server from accepting new connections.
-See <a href="net.html#server.close">net.Server.close()</a>.</p>
+See <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#server.close', true)">net.Server.close()</a>.</p>
 
 <h2 id="http.ServerRequest">http.ServerRequest <span/></h2>
 
@@ -249,7 +249,7 @@ passed as the second parameter to the <code>'request'</code> event. It is a <cod
 <h3 id="response.writeContinue">response.writeContinue() <span/></h3>
 
 <p>Sends a HTTP/1.1 100 Continue message to the client, indicating that
-the request body should be sent. See the <a href="#event_checkContinue_">checkContinue</a> event on
+the request body should be sent. See the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/http.html#event_checkContinue_', true)">checkContinue</a> event on
 <code>Server</code>.</p>
 
 <h3 id="response.writeHead">response.writeHead(statusCode, [reasonPhrase], [headers]) <span/></h3>
@@ -377,15 +377,15 @@ followed by <code>response.end()</code>.</p>
 
 <p>Node maintains several connections per server to make HTTP requests.
 This function allows one to transparently issue requests.  <code>options</code> align
-with <a href="url.html#url.parse">url.parse()</a>.</p>
+with <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/url.html#url.parse', true)">url.parse()</a>.</p>
 
 <p>Options:</p>
 
 <ul><li><code>host</code>: A domain name or IP address of the server to issue the request to.
 Defaults to <code>'localhost'</code>.</li><li><code>hostname</code>: To support <code>url.parse()</code> <code>hostname</code> is preferred over <code>host</code></li><li><code>port</code>: Port of remote server. Defaults to 80.</li><li><code>socketPath</code>: Unix Domain Socket (use one of host:port or socketPath)</li><li><code>method</code>: A string specifying the HTTP request method. Defaults to <code>'GET'</code>.</li><li><code>path</code>: Request path. Defaults to <code>'/'</code>. Should include query string if any.
 E.G. <code>'/index.html?page=12'</code></li><li><code>headers</code>: An object containing request headers.</li><li><code>auth</code>: Basic authentication i.e. <code>'user:password'</code> to compute an
-Authorization header.</li><li><code>agent</code>: Controls <a href="#http.Agent">Agent</a> behavior. When an Agent is used
-request will default to <code>Connection: keep-alive</code>. Possible values:<ul><li><code>undefined</code> (default): use <a href="#http.globalAgent">global Agent</a> for this host
+Authorization header.</li><li><code>agent</code>: Controls <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/http.html#http.Agent', true)">Agent</a> behavior. When an Agent is used
+request will default to <code>Connection: keep-alive</code>. Possible values:<ul><li><code>undefined</code> (default): use <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/http.html#http.globalAgent', true)">global Agent</a> for this host
 and port.</li><li><code>Agent</code> object: explicitly use the passed in <code>Agent</code>.</li><li><code>false</code>: opts out of connection pooling with an Agent, defaults request to
 <code>Connection: close</code>.</li></ul></li></ul><p><code>http.request()</code> returns an instance of the <code>http.ClientRequest</code>
 class. The <code>ClientRequest</code> instance is a writable stream. If one needs to
@@ -650,19 +650,19 @@ chunked, this will send the terminating <code>'0\r\n\r\n'</code>.</p>
 <h3 id="request.setTimeout">request.setTimeout(timeout, [callback]) <span/></h3>
 
 <p>Once a socket is assigned to this request and is connected 
-<a href="net.html#socket.setTimeout">socket.setTimeout(timeout, [callback])</a>
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#socket.setTimeout', true)">socket.setTimeout(timeout, [callback])</a>
 will be called.</p>
 
 <h3 id="request.setNoDelay">request.setNoDelay([noDelay]) <span/></h3>
 
 <p>Once a socket is assigned to this request and is connected 
-<a href="net.html#socket.setNoDelay">socket.setNoDelay(noDelay)</a>
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#socket.setNoDelay', true)">socket.setNoDelay(noDelay)</a>
 will be called.</p>
 
 <h3 id="request.setSocketKeepAlive">request.setSocketKeepAlive([enable], [initialDelay]) <span/></h3>
 
 <p>Once a socket is assigned to this request and is connected 
-<a href="net.html#socket.setKeepAlive">socket.setKeepAlive(enable, [initialDelay])</a>
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#socket.setKeepAlive', true)">socket.setKeepAlive(enable, [initialDelay])</a>
 will be called.</p>
 
 <h2 id="http.ClientResponse">http.ClientResponse <span/></h2>
@@ -691,7 +691,7 @@ emitted no other events will be emitted on the response.</p>
 
 <p>Indicates that the underlaying connection was terminated before
 <code>end</code> event was emitted.
-See <a href="#http.ServerRequest">http.ServerRequest</a>'s <code>'close'</code> event for more
+See <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/http.html#http.ServerRequest', true)">http.ServerRequest</a>'s <code>'close'</code> event for more
 information.</p>
 
 <h3 id="response.statusCode">response.statusCode <span/></h3>

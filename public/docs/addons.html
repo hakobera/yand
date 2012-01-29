@@ -16,7 +16,7 @@ knowledge of several libraries:</p>
 <ul><li><p>V8 JavaScript, a C++ library. Used for interfacing with JavaScript:
 creating objects, calling functions, etc.  Documented mostly in the
 <code>v8.h</code> header file (<code>deps/v8/include/v8.h</code> in the Node source tree),
-which is also available <a href="http://izs.me/v8-docs/main.html">online</a>.</p></li><li><p><a href="https://github.com/joyent/libuv">libuv</a>, C event loop library. Anytime one
+which is also available <a href="http://izs.me/v8-docs/main.html" target="_blank">online</a>.</p></li><li><p><a href="https://github.com/joyent/libuv" target="_blank">libuv</a>, C event loop library. Anytime one
 needs to wait for a file descriptor to become readable, wait for a timer, or
 wait for a signal to received one will need to interface with libuv. That is,
 if you perform any I/O, libuv will need to be used.</p></li><li><p>Internal Node libraries. Most importantly is the <code>node::ObjectWrap</code>
@@ -82,7 +82,7 @@ def build(bld):
 <p>Running <code>node-waf configure build</code> will create a file
 <code>build/default/hello.node</code> which is our Addon.</p>
 
-<p><code>node-waf</code> is just <a href="http://code.google.com/p/waf">WAF</a>, the python-based build system. <code>node-waf</code> is
+<p><code>node-waf</code> is just <a href="http://code.google.com/p/waf" target="_blank">WAF</a>, the python-based build system. <code>node-waf</code> is
 provided for the ease of users.</p>
 
 <p>You can now use the binary addon in a Node project <code>hello.js</code> by pointing <code>require</code> to
@@ -93,13 +93,13 @@ the recently built module:</p>
 console.log(addon.hello()); // 'world'</code></pre>
 
 <p>Please see patterns below for further information or
-<a href="https://github.com/pietern/hiredis-node">https://github.com/pietern/hiredis-node</a> for an example in production.</p>
+<a href="https://github.com/pietern/hiredis-node" target="_blank">https://github.com/pietern/hiredis-node</a> for an example in production.</p>
 
 <h2 id="addon_patterns">Addon patterns <span/></h2>
 
 <p>Below are some addon patterns to help you get started. Consult the online
-<a href="http://izs.me/v8-docs/main.html">v8 reference</a> for help with the various v8
-calls, and v8's <a href="http://code.google.com/apis/v8/embed.html">Embedder's Guide</a>
+<a href="http://izs.me/v8-docs/main.html" target="_blank">v8 reference</a> for help with the various v8
+calls, and v8's <a href="http://code.google.com/apis/v8/embed.html" target="_blank">Embedder's Guide</a>
 for an explanation of several concepts used such as handles, scopes,
 function templates, etc.</p>
 

@@ -16,7 +16,7 @@ this module with <code>require('net');</code></p>
 <h3 id="net.createServer">net.createServer([options], [connectionListener]) <span/></h3>
 
 <p>Creates a new TCP server. The <code>connectionListener</code> argument is
-automatically set as a listener for the <a href="#event_connection_">'connection'</a>
+automatically set as a listener for the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_connection_', true)">'connection'</a>
 event.</p>
 
 <p><code>options</code> is an object with the following defaults:</p>
@@ -27,7 +27,7 @@ event.</p>
 <p>If <code>allowHalfOpen</code> is <code>true</code>, then the socket won't automatically send FIN
 packet when the other end of the socket sends a FIN packet. The socket becomes
 non-readable, but still writable. You should call the <code>end()</code> method explicitly.
-See <a href="#event_end_">'end'</a> event for more information.</p>
+See <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_end_', true)">'end'</a> event for more information.</p>
 
 <p>Here is an example of a echo server which listens for connections
 on port 8124:</p>
@@ -63,14 +63,14 @@ just be changed to</p>
 <h3 id="net.createConnection">net.createConnection(arguments...) <span/></h3>
 
 <p>Construct a new socket object and opens a socket to the given location. When
-the socket is established the <a href="#event_connect_">'connect'</a> event will be
+the socket is established the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_connect_', true)">'connect'</a> event will be
 emitted.</p>
 
 <p>The arguments for these methods change the type of connection:</p>
 
 <ul><li><code>net.connect(port, [host], [connectListener])</code></li><li><p><code>net.createConnection(port, [host], [connectListener])</code></p><p>Creates a TCP connection to <code>port</code> on <code>host</code>. If <code>host</code> is omitted,
 <code>'localhost'</code> will be assumed.</p></li><li><p><code>net.connect(path, [connectListener])</code></p></li><li><p><code>net.createConnection(path, [connectListener])</code></p><p>Creates unix socket connection to <code>path</code>.</p></li></ul><p>The <code>connectListener</code> parameter will be added as an listener for the
-<a href="#event_connect_">'connect'</a> event.</p>
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_connect_', true)">'connect'</a> event.</p>
 
 <p>Here is an example of a client of echo server as described previously:</p>
 
@@ -104,9 +104,9 @@ A server is a <code>net.Socket</code> that can listen for new incoming connectio
 IPv4 address (<code>INADDR_ANY</code>). A port value of zero will assign a random port.</p>
 
 <p>This function is asynchronous.  When the server has been bound,
-<a href="#event_listening_">'listening'</a> event will be emitted.
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_listening_', true)">'listening'</a> event will be emitted.
 the last parameter <code>listeningListener</code> will be added as an listener for the
-<a href="#event_listening_">'listening'</a> event.</p>
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_listening_', true)">'listening'</a> event.</p>
 
 <p>One issue some users run into is getting <code>EADDRINUSE</code> errors. This means that
 another server is already running on the requested port. One way of handling this
@@ -129,9 +129,9 @@ would be to wait a second and then try again. This can be done with</p>
 <p>Start a UNIX socket server listening for connections on the given <code>path</code>.</p>
 
 <p>This function is asynchronous.  When the server has been bound,
-<a href="#event_listening_">'listening'</a> event will be emitted.
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_listening_', true)">'listening'</a> event will be emitted.
 the last parameter <code>listeningListener</code> will be added as an listener for the
-<a href="#event_listening_">'listening'</a> event.</p>
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_listening_', true)">'listening'</a> event.</p>
 
 <h4 id="server.pause">server.pause(msecs) <span/></h4>
 
@@ -235,13 +235,13 @@ opened as a unix socket to that path.</p>
 socket. Use this only if you are implementing a custom Socket or if a
 Socket is closed and you want to reuse it to connect to another server.</p>
 
-<p>This function is asynchronous. When the <a href="#event_connect_">'connect'</a> event is
+<p>This function is asynchronous. When the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_connect_', true)">'connect'</a> event is
 emitted the socket is established. If there is a problem connecting, the
 <code>'connect'</code> event will not be emitted, the <code>'error'</code> event will be emitted with
 the exception.</p>
 
 <p>The <code>connectListener</code> parameter will be added as an listener for the
-<a href="#event_connect_">'connect'</a> event.</p>
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#event_connect_', true)">'connect'</a> event.</p>
 
 <h4 id="socket.bufferSize">socket.bufferSize <span/></h4>
 
@@ -269,7 +269,7 @@ received. Defaults to <code>null</code>.</p>
 <h4 id="socket.setSecure">socket.setSecure() <span/></h4>
 
 <p>This function has been removed in v0.3. It used to upgrade the connection to
-SSL/TLS. See the <a href="tls.html#tLS_">TLS section</a> for the new API.</p>
+SSL/TLS. See the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/tls.html#tLS_', true)">TLS section</a> for the new API.</p>
 
 <h4 id="socket.write">socket.write(data, [encoding], [callback]) <span/></h4>
 
@@ -381,7 +381,7 @@ See <code>connect()</code>.</p>
 
 <p>Emitted when data is received.  The argument <code>data</code> will be a <code>Buffer</code> or
 <code>String</code>.  Encoding of data is set by <code>socket.setEncoding()</code>.
-(See the <a href="streams.html#readable_Stream">Readable Stream</a> section for more
+(See the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/streams.html#readable_Stream', true)">Readable Stream</a> section for more
 information.)</p>
 
 <h4 id="event_end_">Event: 'end' <span/></h4>

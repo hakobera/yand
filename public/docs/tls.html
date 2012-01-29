@@ -37,9 +37,9 @@ file. This is done with:</p>
 
 <h4 id="tls.createServer">tls.createServer(options, [secureConnectionListener]) <span/></h4>
 
-<p>Creates a new <a href="#tls.Server">tls.Server</a>.
+<p>Creates a new <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/tls.html#tls.Server', true)">tls.Server</a>.
 The <code>connectionListener</code> argument is automatically set as a listener for the
-<a href="#event_secureConnection_">secureConnection</a> event.
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/tls.html#event_secureConnection_', true)">secureConnection</a> event.
 The <code>options</code> object has these possibilities:</p>
 
 <ul><li><p><code>key</code>: A string or <code>Buffer</code> containing the private key of the server in
@@ -102,9 +102,9 @@ These are used to authorize connections.</p></li><li><p><code>NPNProtocols</code
 protocols. <code>Buffer</code> should have following format: <code>0x05hello0x05world</code>,
 where first byte is next protocol name's length. (Passing array should
 usually be much simpler: <code>['hello', 'world']</code>.)</p></li><li><p><code>servername</code>: Servername for SNI (Server Name Indication) TLS extension.</p></li></ul><p>The <code>secureConnectListener</code> parameter will be added as a listener for the
-<a href="#event_secureConnect_">'secureConnect'</a> event.</p>
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/tls.html#event_secureConnect_', true)">'secureConnect'</a> event.</p>
 
-<p><code>tls.connect()</code> returns a <a href="#tls.CleartextStream">CleartextStream</a> object.</p>
+<p><code>tls.connect()</code> returns a <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/tls.html#tls.CleartextStream', true)">CleartextStream</a> object.</p>
 
 <p>Here is an example of a client of echo server as described previously:</p>
 
@@ -143,7 +143,7 @@ streams: an encrypted stream and a cleartext stream. The encrypted stream is
 then piped to the socket, the cleartext stream is what the user interacts with
 thereafter.</p>
 
-<p><a href="http://gist.github.com/848444">Here is some code that does it.</a></p>
+<p><a href="http://gist.github.com/848444" target="_blank">Here is some code that does it.</a></p>
 
 <h3 id="nPN_and_SNI">NPN and SNI <span/></h3>
 
@@ -163,7 +163,7 @@ opened as a server or a client.</p></li><li><p><code>requestCert</code>: A boole
 certificate from a connecting client. Only applies to server connections.</p></li><li><p><code>rejectUnauthorized</code>: A boolean indicating whether a server should
 automatically reject clients with invalid certificates. Only applies to
 servers with <code>requestCert</code> enabled.</p></li></ul><p><code>tls.createSecurePair()</code> returns a SecurePair object with
-<a href="#tls.CleartextStream">cleartext</a> and <code>encrypted</code> stream properties.</p>
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/tls.html#tls.CleartextStream', true)">cleartext</a> and <code>encrypted</code> stream properties.</p>
 
 <h4 id="event_secure_">Event: 'secure' <span/></h4>
 
@@ -186,7 +186,7 @@ connections using TLS or SSL.</p>
 
 <p>This event is emitted after a new connection has been successfully
 handshaked. The argument is a instance of
-<a href="#tls.CleartextStream">CleartextStream</a>. It has all the common stream methods
+<a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/tls.html#tls.CleartextStream', true)">CleartextStream</a>. It has all the common stream methods
 and events.</p>
 
 <p><code>cleartextStream.authorized</code> is a boolean value which indicates if the
@@ -227,7 +227,7 @@ event.</p>
 
 <p>Returns the bound address and port of the server as reported by the operating
 system.
-See <a href="net.html#server.address">net.Server.address()</a> for more information.</p>
+See <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/net.html#server.address', true)">net.Server.address()</a> for more information.</p>
 
 <h4 id="server.addContext">server.addContext(hostname, credentials) <span/></h4>
 
@@ -249,7 +249,7 @@ gets high.</p>
 <p>This is a stream on top of the <em>Encrypted</em> stream that makes it possible to
 read/write an encrypted data as a cleartext data.</p>
 
-<p>This instance implements a duplex <a href="streams.html#streams">Stream</a> interfaces.
+<p>This instance implements a duplex <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/streams.html#streams', true)">Stream</a> interfaces.
 It has all the common stream methods and events.</p>
 
 <h4 id="event_secureConnect_">Event: 'secureConnect' <span/></h4>

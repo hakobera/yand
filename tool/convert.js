@@ -33,13 +33,33 @@ cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
         return next(err);
       }
 
-      var doc = libxml.parseHtmlString(src);
+      var path = url.parse(uri).pathname,
+          rootPath = 'public',
+          relativePath = '/docs' + path.substr(path.lastIndexOf('/')),
+          filePath = rootPath + relativePath,
+          doc = libxml.parseHtmlString(src);
+
       doc.search('head, script, header, #intro, #column2, #toc, .top, .mark, #footer, footer, noscript').forEach(function (e) {
         e.remove();
       });
 
-      var path = url.parse(uri).pathname,
-          filePath = 'public/docs' + path.substr(path.lastIndexOf('/'));
+      doc.search('#column1 a').forEach(function (a) {
+        var href = a.attr('href').value();
+
+        if (href.substr(0, 5) === 'http:' || href.substr(0, 6) === 'https:') {
+          // external site
+          a.attr('target', '_blank');
+        } else if (href.substr(0, 1) === '#') {
+          // internal anchor link
+          a.attr('href', 'javascript:void(0);');
+          a.attr('onclick', "javascript:pageLoad('" + relativePath + href + "', true)");
+        } else {
+          // site internal link
+          console.log(href);
+          a.attr('href', 'javascript:void(0);');
+          a.attr('onclick', "javascript:pageLoad('/docs/" + href + "', true)");
+        }
+      });
 
       console.log('writing ' + filePath);
       fs.writeFileSync(filePath, doc.toString());

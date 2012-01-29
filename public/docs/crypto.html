@@ -22,7 +22,7 @@ of a secure HTTPS net or http connection.</p>
 <p>Creates a credentials object, with the optional details being a dictionary with keys:</p>
 
 <ul><li><code>key</code> : a string holding the PEM encoded private key</li><li><code>cert</code> : a string holding the PEM encoded certificate</li><li><code>ca</code> : either a string or list of strings of PEM encoded CA certificates to trust.</li></ul><p>If no 'ca' details are given, then node.js will use the default publicly trusted list of CAs as given in
-<a href="http://mxr.mozilla.org/mozilla/source/security/nss/lib/ckfw/builtins/certdata.txt">http://mxr.mozilla.org/mozilla/source/security/nss/lib/ckfw/builtins/certdata.txt</a>.</p>
+<a href="http://mxr.mozilla.org/mozilla/source/security/nss/lib/ckfw/builtins/certdata.txt" target="_blank">http://mxr.mozilla.org/mozilla/source/security/nss/lib/ckfw/builtins/certdata.txt</a>.</p>
 
 <h3 id="crypto.createHash">crypto.createHash(algorithm) <span/></h3>
 
@@ -94,7 +94,7 @@ Defaults to <code>'binary'</code>.</p>
 On recent releases, <code>openssl list-cipher-algorithms</code> will display the
 available cipher algorithms.
 <code>password</code> is used to derive key and IV, which must be <code>'binary'</code> encoded
-string (See the <a href="buffers.html">Buffers</a> for more information).</p>
+string (See the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/buffers.html', true)">Buffers</a> for more information).</p>
 
 <h3 id="crypto.createCipheriv">crypto.createCipheriv(algorithm, key, iv) <span/></h3>
 
@@ -102,7 +102,7 @@ string (See the <a href="buffers.html">Buffers</a> for more information).</p>
 
 <p><code>algorithm</code> is the same as the <code>createCipher()</code>. <code>key</code> is a raw key used in
 algorithm. <code>iv</code> is an Initialization vector. <code>key</code> and <code>iv</code> must be <code>'binary'</code>
-encoded string (See the <a href="buffers.html">Buffers</a> for more information).</p>
+encoded string (See the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/buffers.html', true)">Buffers</a> for more information).</p>
 
 <h3 id="cipher.update">cipher.update(data, [input_encoding], [output_encoding]) <span/></h3>
 
@@ -125,12 +125,12 @@ and can be <code>'binary'</code>, <code>'base64'</code> or <code>'hex'</code>. D
 <h3 id="crypto.createDecipher">crypto.createDecipher(algorithm, password) <span/></h3>
 
 <p>Creates and returns a decipher object, with the given algorithm and key.
-This is the mirror of the <a href="#crypto.createCipher">createCipher()</a> above.</p>
+This is the mirror of the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/crypto.html#crypto.createCipher', true)">createCipher()</a> above.</p>
 
 <h3 id="crypto.createDecipheriv">crypto.createDecipheriv(algorithm, key, iv) <span/></h3>
 
 <p>Creates and returns a decipher object, with the given algorithm, key and iv.
-This is the mirror of the <a href="#crypto.createCipheriv">createCipheriv()</a> above.</p>
+This is the mirror of the <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/crypto.html#crypto.createCipheriv', true)">createCipheriv()</a> above.</p>
 
 <h3 id="decipher.update">decipher.update(data, [input_encoding], [output_encoding]) <span/></h3>
 
