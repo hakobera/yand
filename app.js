@@ -3,8 +3,6 @@ var connect = require('connect'),
 
 function compile(str, path) {
   return stylus(str)
-    .import(__dirname + '/css/mixins/blueprint')
-    .import(__dirname + '/css/mixins/css3')
     .set('filename', path)
     .set('warn', true)
     .set('compress', true);
@@ -13,7 +11,7 @@ function compile(str, path) {
 var server = connect(
   stylus.middleware({
     src: __dirname + '/public',
-    force: true
+    compile: compile
   }),
   connect.static(__dirname + '/public')
 );
