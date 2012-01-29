@@ -36,6 +36,8 @@ $(function() {
       if (Modernizr.history && saveState) {
         window.parent.history.pushState(href, null, '?p=' + href);
       }
+
+      highlight(undefined, undefined, 'pre');
     });
   }
 });
