@@ -1,6 +1,6 @@
 $(function() {
   var ua = navigator.userAgent,
-      isMobile = (ua.indexOf('Mobile') !== -1 && ua.indexOf('Safari') !== -1);
+      isMobile = (ua.indexOf('Mobile') !== -1);
 
   window.pageLoad = function(href, saveState) {
     $('#doc', $(document)).load(href, function() {

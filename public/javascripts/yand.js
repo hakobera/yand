@@ -73,7 +73,7 @@ Yand.prototype.mobilify = function() {
   var self = this;
 
   var ua = navigator.userAgent;
-  if (ua.indexOf('Mobile') !== -1 && ua.indexOf('Safari')) {
+  if (ua.indexOf('Mobile') !== -1) {
     self.isMobile = true;
 
     var height = $(parent.window).innerHeight() - 30;
