@@ -43,6 +43,13 @@ var yand = {
       self.linkOpen($(this));
     });
 
+    $('#results').keyup(function(event) {
+      event.preventDefault();
+      if ($.inArray(event.keyCode, keys.array) !== -1) {
+        self.handleKey(keys, event.keyCode);
+      }
+    });
+
     categories.each(function() {
       $(this).addClass('close');
     });
@@ -60,7 +67,8 @@ var yand = {
       var height = $(parent.window).innerHeight() - 30;
       $('#navigation').css({
         'height': height,
-        'overflow-y': 'scroll'
+        'overflow-y': 'scroll',
+        'overflow-x': 'hidden'
       });
     }
 
@@ -145,6 +153,7 @@ var yand = {
         if (pos != -1 && results.text().indexOf(name) === -1) {
           var li = $('<li>');
           li.append(el.parent().parent().find('a:first').clone());
+          li.highlight(query);
           results.append(li);
         }
       });
@@ -180,7 +189,8 @@ var yand = {
         var height = $(parent.window).innerHeight();
         _this.css({
           'height': height,
-          'overflow-y': 'scroll'
+          'overflow-y': 'scroll',
+          'overflow-x': 'hidden'
         });
       }
 

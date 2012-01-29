@@ -26,8 +26,7 @@
   position: absolute;
   top: 30px;
   width: 220px;
-  font-size: 12px;
-  overflow-x: hidden;
+  font-size: 14px;
 }
 #navigation a {
   color: #333;
@@ -92,6 +91,9 @@
   display: block;
   width: 100%;
   height: 100%;
+}
+#results li .highlight {
+  font-weight: bold;
 }
 #results li:hover {
   background-color: #cfcfcf;
