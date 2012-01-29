@@ -39,7 +39,8 @@ var categories = [],
     uri = 'http://nodejs.org/docs/latest/api/index.html',
     page = [
         '<!DOCTYPE html>',
-        '<html><head><meta charset="utf-8"/></head><body>',
+        '<html><body>',
+        '<ul id="results"></ul>',
         '<ul id="indexList">'
       ].join("\n");
 

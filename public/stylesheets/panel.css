@@ -38,6 +38,9 @@
 #navigation .selected {
   background-color: #8cc84b;
 }
+#navigation .selected a {
+  color: #fff;
+}
 #navigation li span:hover {
   background-color: #cfcfcf;
 }
@@ -84,13 +87,10 @@
   padding-left: 105px;
   background-position-x: 80px;
 }
-#results li {
-  padding: 7px 0 7px 10px;
-}
 #results li a {
   display: block;
   width: 100%;
-  height: 100%;
+  padding: 7px 0 7px 10px;
 }
 #results li .highlight {
   font-weight: bold;

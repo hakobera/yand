@@ -1,222 +1,246 @@
-var yand = {
+function Yand() {
+  var self = this;
 
-  isMobile: false,
+  self.search = $('#searchField');
+  self.indexList = $('#indexList');
+  self.results = $('#results');
+  self.categories = $('.category', self.indexList);
 
-  init: function() {
-    var self = this;
+  self.keys = {
+    enter:  13,
+    escape: 27,
+    up:     38,
+    down:   40,
+    left: 37,
+    right: 39,
+    array:  [13, 27, 37, 38, 39, 40]
+  };
 
-    var search = $('#searchField'),
-        indexList = $('#indexList'),
-        results = $('<ul>', { id: 'results' }).insertBefore(indexList),
-        categories = $('.category', indexList);
+  self.isMobile = false;
+}
 
-    var keys = {
-      enter:  13,
-      escape: 27,
-      up:     38,
-      down:   40,
-      left: 37,
-      right: 39,
-      array:  [13, 27, 37, 38, 39, 40]
+Yand.prototype.init = function() {
+  var self = this;
+
+  self.initView();
+  self.bindEvents();
+  self.mobilify();
+  self.setupHistory();
+  self.loadFirstPage();
+};
+
+Yand.prototype.initView = function() {
+  var self = this;
+  self.categories.each(function() {
+    $(this).addClass('close');
+  });
+};
+
+Yand.prototype.bindEvents = function() {
+  var self = this;
+
+  self.search.keyup(function(event) {
+    if ($.inArray(event.keyCode, self.keys.array) !== -1) {
+      self.handleKey(event.keyCode);
+    } else {
+      self.searchIndex(search);
+    }
+  })
+  .focus();
+
+  $('a', self.indexList).live('click', function(e) {
+    e.preventDefault();
+    $('li', indexList).removeClass('selected');
+    $(this).parent().addClass('selected');
+    self.linkOpen($(this));
+  });
+
+  $('a', self.results).live('click', function(e) {
+    e.preventDefault();
+    $('li', self.results).removeClass('selected');
+    $(this).parent().addClass('selected');
+    self.linkOpen($(this));
+  });
+
+  $('span:first', self.categories).toggle(function() {
+    self.listOpen($(this).closest('.category'));
+  }, function() {
+    self.listClose($(this).closest('.category'));
+  });
+};
+
+Yand.prototype.mobilify = function() {
+  var self = this;
+
+  var ua = navigator.userAgent;
+  if (ua.indexOf('Mobile') !== -1 && ua.indexOf('Safari')) {
+    self.isMobile = true;
+
+    var height = $(parent.window).innerHeight() - 30;
+    $('#navigation').css({
+      'height': height,
+      'overflow-y': 'scroll',
+      'overflow-x': 'hidden'
+    });
+
+    setTimeout(function() {
+      window.scrollTo(0, 1);
+    }, 0); // hide address bar
+  }
+};
+
+Yand.prototype.setupHistory = function() {
+  var self = this;
+  if (Modernizr.history) {
+    window.parent.onpopstate = function(event) {
+      var href = event.state;
+      self.linkOpen(href, false);
     };
+  }
+};
 
-    search.keyup(function(event) {
-      if ($.inArray(event.keyCode, keys.array) !== -1) {
-        self.handleKey(keys, event.keyCode);
-      } else {
-        self.searchIndex(search, indexList, results);
+Yand.prototype.loadFirstPage = function() {
+  var self = this;
+
+  var loc = window.parent.location,
+      query = loc.search,
+      hash = loc.hash,
+      q = query.match(/\?q=([^&]+)/),
+      p = query.match(/\?p=([^&]+)/);
+
+  if (q) {
+    q = decodeURIComponent(q[1]).replace(/\+/g, ' ');
+    if (q.length > 0) {
+      self.search.val(q);
+      self.searchIndex(search);
+
+      var links = $('li > a', self.results);
+      if (links.length > 0) {
+        self.linkOpen($(links[0]));
       }
-    })
-    .focus();
+    }
+  } else if (p && p[1]) {
+    self.linkOpen(p[1] + '#' + hash);
+  } else {
+    self.linkOpen('top.html', false);
+  }
+};
 
-    $('a', indexList).live('click', function(e) {
-      e.preventDefault();
-      $('li', indexList).removeClass('selected');
-      $(this).parent().addClass('selected');
-      self.linkOpen($(this));
-    });
+Yand.prototype.handleKey = function(key) {
+  var self = this,
+      keys = self.keys;
 
-    $('a', '#results').live('click', function(e) {
-      e.preventDefault();
-      $('li', '#results').removeClass('selected');
-      $(this).parent().addClass('selected');
-      self.linkOpen($(this));
-    });
+  if (self.results.is(':visible')) {
+    var selected = $('.selected:visible');
+    if(selected.length) {
+      if (key == keys.up && selected.prev().length) {
+        selected.removeClass('selected').prev().addClass('selected');
+      }
+      if (key == keys.down && selected.next().length) {
+        selected.removeClass('selected').next().addClass('selected');
+      }
+      if (key == keys.enter) {
+        var href = selected.find('a:first').attr('href');
+        self.linkOpen(selected.find('a:first'));
+      }
 
-    $('#results').keyup(function(event) {
-      event.preventDefault();
-      if ($.inArray(event.keyCode, keys.array) !== -1) {
-        self.handleKey(keys, event.keyCode);
+      if (key == keys.right) {
+        self.listOpen(selected);
+      }
+
+      if (key == keys.left) {
+        self.listClose(selected);
+      }
+    } else {
+      if (key == keys.down) {
+        selected = $('li:first', results);
+        selected.addClass('selected');
+      }
+    }
+  }
+};
+
+Yand.prototype.searchIndex = function(search) {
+  var self = this;
+
+  var query = self.search.val();
+  if (query.length) {
+    self.results.html('').show();
+    self.indexList.hide();
+
+    query = query.toLowerCase();
+    $('.searchable', self.indexList).each(function() {
+      var el = $(this),
+          name = el.text(),
+          pos = name.toLowerCase().indexOf(query);
+
+      if (pos != -1 && self.results.text().indexOf(name) === -1) {
+        var li = $('<li>');
+        li.append(el.parent().parent().find('a:first').clone());
+        li.highlight(query);
+        self.results.append(li);
       }
     });
 
-    categories.each(function() {
-      $(this).addClass('close');
-    });
+    $('.selected', self.indexList).removeClass('selected');
+    $('li:first', self.results).addClass('selected');
+  } else {
+    self.results.hide();
+    self.indexList.show();
+  }
+};
 
-    $('span:first', categories).toggle(function() {
-      self.listOpen($(this).closest('.category'));
-    }, function() {
-      self.listClose($(this).closest('.category'));
-    });
+Yand.prototype.listOpen = function(li) {
+  li.removeClass('close').children('ul').show();
+};
 
-    var ua = navigator.userAgent;
-    if (ua.indexOf('Mobile') !== -1 && ua.indexOf('Safari')) {
-      self.isMobile = true;
+Yand.prototype.listClose = function(li) {
+  li.addClass('close').children('ul').hide()
+};
 
-      var height = $(parent.window).innerHeight() - 30;
-      $('#navigation').css({
+Yand.prototype.linkOpen = function(link, saveState) {
+  var self = this;
+
+  var href = (typeof link === 'string' ? link : link.attr('href')),
+      saveState = (saveState != undefined) ? saveState : true,
+      docwin = parent.docwin,
+      docwinDoc = docwin.document;
+
+  $('#doc', $(docwinDoc)).load(href, function() {
+    var _this = $(this);
+
+    if (self.isMobile) {
+      var height = $(parent.window).innerHeight();
+      _this.css({
         'height': height,
         'overflow-y': 'scroll',
         'overflow-x': 'hidden'
       });
     }
 
-    if (Modernizr.history) {
-      window.parent.onpopstate = function(event) {
-        console.log(event);
-        var href = event.state;
-        self.linkOpen(href, false);
-      };
-    }
-
-    var query = window.parent.location.search,
-        hash = window.parent.location.hash,
-        q = query.match(/\?q=([^&]+)/),
-        p = query.match(/\?p=([^&]+)/);
-
-    if (q) {
-      q = decodeURIComponent(q[1]).replace(/\+/g, ' ');
-      if (q.length > 0) {
-        search.val(q);
-        self.searchIndex(search, indexList, results);
-
-        var links = $('li > a', results);
-        if (links.length > 0) {
-          self.linkOpen($(links[0]));
-        }
-      }
-    } else if (p && p[1]) {
-      self.linkOpen(p[1] + '#' + hash);
-    } else {
-      self.linkOpen('top.html', false);
-    }
-  },
-
-  handleKey: function(keys, key) {
-    var self = this;
-
-    var results = $('#results');
-    if (results.is(':visible')) {
-      var selected = $('.selected:visible');
-      if(selected.length) {
-        if (key == keys.up && selected.prev().length) {
-          selected.removeClass('selected').prev().addClass('selected');
-        }
-        if (key == keys.down && selected.next().length) {
-          selected.removeClass('selected').next().addClass('selected');
-        }
-        if (key == keys.enter) {
-          var href = selected.find('a:first').attr('href');
-          self.linkOpen(selected.find('a:first'));
-        }
-
-        if (key == keys.right) {
-          self.listOpen(selected);
-        }
-
-        if (key == keys.left) {
-          self.listClose(selected);
-        }
-      } else {
-        if (key == keys.down) {
-          selected = $('li:first', results);
-          selected.addClass('selected');
-        }
-      }
-    }
-  },
-
-  searchIndex: function(search, indexList, results) {
-    var query = search.val();
-
-    if (query.length) {
-      results.html('').show();
-      indexList.hide();
-
-      query = query.toLowerCase();
-      $('.searchable', indexList).each(function() {
-        var el = $(this);
-        var name = el.text();
-        var pos = name.toLowerCase().indexOf(query);
-
-        if (pos != -1 && results.text().indexOf(name) === -1) {
-          var li = $('<li>');
-          li.append(el.parent().parent().find('a:first').clone());
-          li.highlight(query);
-          results.append(li);
-        }
-      });
-
-      $('.selected', indexList).removeClass('selected');
-      $('li:first', results).addClass('selected');
-    } else {
-      results.hide();
-      indexList.show();
-    }
-  },
-
-  listOpen: function(li) {
-    li.removeClass('close').children('ul').show();
-  },
-
-  listClose: function(li) {
-    li.addClass('close').children('ul').hide()
-  },
-
-  linkOpen: function(link, saveState) {
-    var self = this;
-
-    var href = (typeof link === 'string' ? link : link.attr('href')),
-        saveState = (saveState != undefined) ? saveState : true,
-        docwin = parent.docwin,
-        docwinDoc = docwin.document;
-
-    $('#doc', $(docwinDoc)).load(href, function() {
-      var _this = $(this);
+    var i = href.lastIndexOf('#');
+    if (i !== -1) {
+      var anchor = href.substring(i),
+          selector = anchor.replace(/\./g, '\\.'), // anchor may include dot
+          top = _this.find(selector).position().top + 10;
 
       if (self.isMobile) {
-        var height = $(parent.window).innerHeight();
-        _this.css({
-          'height': height,
-          'overflow-y': 'scroll',
-          'overflow-x': 'hidden'
-        });
+        _this.scrollTop(0);
+        _this.scrollTop(top);
+      } else {
+        docwin.scrollTo(0, top);
       }
 
-      var i = href.lastIndexOf('#');
-      if (i !== -1) {
-        var anchor = href.substring(i);
-
-        if (self.isMobile) {
-          _this.scrollTop(0);
-          var top = _this.find(anchor.replace(/\./g, '\\.')).position().top + 10;
-          _this.scrollTop(top);
-        } else {
-          var top = _this.find(anchor.replace(/\./g, '\\.')).position().top + 10;
-          docwin.scrollTo(0, top);
-        }
-
-        if (Modernizr.history && saveState) {
-          window.parent.history.pushState(href, null, '?p=' + href);
-        }
+      if (Modernizr.history && saveState) {
+        window.parent.history.pushState(href, null, '?p=' + href);
       }
-    });
-  }
+    }
+  });
 };
 
 $(function() {
-  var navigation_el = $('#navigation').load('navigation.html', function() { //load the navigation (not static because it gets generated with the api scraping)
-    yand.init();
+  var navigation_el = $('#navigation').load('navigation.html', function() {
+    //load the navigation (not static because it gets generated with the api scraping)
+    new Yand().init();
   });
 });
