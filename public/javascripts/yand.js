@@ -120,7 +120,7 @@ Yand.prototype.loadFirstPage = function() {
       }
     }
   } else if (p && p[1]) {
-    self.linkOpen(p[1] + '#' + hash);
+    self.linkOpen(p[1] + hash);
   } else {
     self.linkOpen('top.html', false);
   }
@@ -204,7 +204,14 @@ Yand.prototype.linkOpen = function(link, saveState) {
   var href = (typeof link === 'string' ? link : link.attr('href')),
       saveState = (saveState != undefined) ? saveState : true;
 
-  parent.docwin.pageLoad(href, saveState);
+  function loadPage() {
+    if (parent.docwin && parent.docwin.pageLoad) {
+      parent.docwin.pageLoad(href, saveState);
+    } else {
+      setTimeout(loadPage, 100);
+    }
+  }
+  setTimeout(loadPage, 0);
 };
 
 $(function() {

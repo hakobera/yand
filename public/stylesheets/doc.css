@@ -1,6 +1,7 @@
 body{padding-top:0}
 #content{width:760px;overflow-y:scroll}
 #column1.interior{padding-top:0}
+.highlight{color:#fff;background-color:#8cc84b;padding:5px 0 5px 5px}
 #top{line-height:10px;}
 #top header{background-color:#8cc84b;padding:0 0 10px 10px;}
 #top header h1{margin:0;color:#fff;font-size:20px}
@@ -11,4 +12,3 @@ body{padding-top:0}
 #top .content .entry a:hover{text-decoration:underline}
 #top .content .entry div.longdesc{font-size:12px;line-height:18px;}
 #top .content .entry div.longdesc p{margin-bottom:1em}
-

@@ -19,16 +19,18 @@ $(function() {
       if (i !== -1) {
         var anchor = href.substring(i),
             selector = anchor.replace(/\./g, '\\.'), // anchor may include dot
-            top = 0;
+            target;
 
         if (isMobile) {
           _this.scrollTop(0);
-          top = _this.find(selector).position().top;
-          _this.scrollTop(top);
+          target = _this.find(selector);
+          _this.scrollTop(target.position().top + 20);
         } else {
-          top = _this.find(selector).position().top;
-          window.scrollTo(0, top);
+          target = _this.find(selector);
+          window.scrollTo(0, target.position().top + 15);
         }
+
+        target.addClass('highlight');
       }
 
       if (Modernizr.history && saveState) {
