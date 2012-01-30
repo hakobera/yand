@@ -43,7 +43,7 @@ Yand.prototype.bindEvents = function() {
     if ($.inArray(event.keyCode, self.keys.array) !== -1) {
       self.handleKey(event.keyCode);
     } else {
-      self.searchIndex(search);
+      self.searchIndex();
     }
   })
   .focus();
@@ -84,7 +84,7 @@ Yand.prototype.mobilify = function() {
     });
 
     setTimeout(function() {
-      window.scrollTo(0, 1);
+      window.parent.scrollTo(0, 1);
     }, 0); // hide address bar
   }
 };
@@ -94,7 +94,9 @@ Yand.prototype.setupHistory = function() {
   if (Modernizr.history) {
     window.parent.onpopstate = function(event) {
       var href = event.state;
-      self.linkOpen(href, false);
+      if (href) {
+        self.linkOpen(href, false);
+      }
     };
   }
 };
@@ -112,7 +114,7 @@ Yand.prototype.loadFirstPage = function() {
     q = decodeURIComponent(q[1]).replace(/\+/g, ' ');
     if (q.length > 0) {
       self.search.val(q);
-      self.searchIndex(search);
+      self.searchIndex();
 
       var links = $('li > a', self.results);
       if (links.length > 0) {
@@ -160,7 +162,7 @@ Yand.prototype.handleKey = function(key) {
   }
 };
 
-Yand.prototype.searchIndex = function(search) {
+Yand.prototype.searchIndex = function() {
   var self = this;
 
   var query = self.search.val();
