@@ -50,7 +50,7 @@ Yand.prototype.bindEvents = function() {
 
   $('a', self.indexList).live('click', function(e) {
     e.preventDefault();
-    $('li', indexList).removeClass('selected');
+    $('li', self.indexList).removeClass('selected');
     $(this).parent().addClass('selected');
     self.linkOpen($(this));
   });

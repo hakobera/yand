@@ -53,17 +53,10 @@
     display: block;
     padding: 7px 0;
     background-image: url('../images/arrow.png')
-    background-position-x: 0
-    background-position-y: -54px
+    background-position: 0 -54px
     background-repeat: no-repeat
 
   .category.close
-    span
-      background-position-y: 0
-
-    span:hover
-      background-position-y: -27px
-
     ul
       display: none;
 
@@ -74,21 +67,51 @@
   .level1 span
     padding-left: 25px
 
+  .level1.category.close span
+    background-position: 0 0
+
+    span:hover
+      background-position: 0 -27px
+
   .level2 span
     padding-left: 45px
-    background-position-x: 20px;
+    background-position: 20px -54px
+
+  .level2.category.close span
+    background-position: 20px 0
+
+    span:hover
+      background-position: 20px -27px
 
   .level3 span
     padding-left: 65px
-    background-position-x: 40px;
+    background-position: 40px -54px
+
+  .level3.category.close span
+    background-position: 40px 0
+
+    span:hover
+      background-position: 40px -27px
 
   .level4 span
     padding-left: 85px
-    background-position-x: 60px;
+    background-position: 60px -54px
+
+  .level4.category.close span
+    background-position: 60px 0
+
+    span:hover
+      background-position: 60px -27px
 
   .level5 span
     padding-left: 105px
-    background-position-x: 80px;
+    background-position: 80px -54px
+
+  .level5.category.close span
+    background-position: 80px 0
+
+    span:hover
+      background-position: 80px -27px
 
 #results
   li

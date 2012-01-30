@@ -9,16 +9,24 @@
 #navigation .selected a{color:#fff}
 #navigation li span:hover{background-color:#cfcfcf}
 #indexList{width:100%;cursor:pointer;}
-#indexList .category span{display:block;padding:7px 0;background-image:url("../images/arrow.png");background-position-x:0;background-position-y:-54px;background-repeat:no-repeat}
-#indexList .category.close span{background-position-y:0}
-#indexList .category.close span:hover{background-position-y:-27px}
+#indexList .category span{display:block;padding:7px 0;background-image:url("../images/arrow.png");background-position:0 -54px;background-repeat:no-repeat}
 #indexList .category.close ul{display:none}
 #indexList .sub span{background-image:none}
 #indexList .level1 span{padding-left:25px}
-#indexList .level2 span{padding-left:45px;background-position-x:20px}
-#indexList .level3 span{padding-left:65px;background-position-x:40px}
-#indexList .level4 span{padding-left:85px;background-position-x:60px}
-#indexList .level5 span{padding-left:105px;background-position-x:80px}
+#indexList .level1.category.close span{background-position:0 0;}
+#indexList .level1.category.close span span:hover{background-position:0 -27px}
+#indexList .level2 span{padding-left:45px;background-position:20px -54px}
+#indexList .level2.category.close span{background-position:20px 0;}
+#indexList .level2.category.close span span:hover{background-position:20px -27px}
+#indexList .level3 span{padding-left:65px;background-position:40px -54px}
+#indexList .level3.category.close span{background-position:40px 0;}
+#indexList .level3.category.close span span:hover{background-position:40px -27px}
+#indexList .level4 span{padding-left:85px;background-position:60px -54px}
+#indexList .level4.category.close span{background-position:60px 0;}
+#indexList .level4.category.close span span:hover{background-position:60px -27px}
+#indexList .level5 span{padding-left:105px;background-position:80px -54px}
+#indexList .level5.category.close span{background-position:80px 0;}
+#indexList .level5.category.close span span:hover{background-position:80px -27px}
 #results li a{display:block;width:100%;padding:7px 0 7px 10px}
 #results li .highlight{font-weight:bold}
 #results li:hover{background-color:#cfcfcf}
