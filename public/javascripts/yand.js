@@ -48,7 +48,9 @@ Yand.prototype.bindEvents = function() {
       }
     })
     .on('search', function() {
-      self.searchIndex();
+      if ($(this).val() === '') {
+        self.searchIndex();
+      }
     })
     .focus();
 
