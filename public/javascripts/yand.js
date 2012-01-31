@@ -39,14 +39,18 @@ Yand.prototype.initView = function() {
 Yand.prototype.bindEvents = function() {
   var self = this;
 
-  self.search.keyup(function(event) {
-    if ($.inArray(event.keyCode, self.keys.array) !== -1) {
-      self.handleKey(event.keyCode);
-    } else {
+  self.search
+    .keyup(function(event) {
+      if ($.inArray(event.keyCode, self.keys.array) !== -1) {
+        self.handleKey(event.keyCode);
+      } else {
+        self.searchIndex();
+      }
+    })
+    .on('search', function() {
       self.searchIndex();
-    }
-  })
-  .focus();
+    })
+    .focus();
 
   $('a', self.indexList).live('click', function(e) {
     e.preventDefault();
