@@ -1,74 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-assert">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="assert">Assert <span/></h2>
+          
 
+          <div id="apicontent">
+            <h1 id="assert_assert">Assert<span><a class="mark" href="#assert_assert" id=""/></span></h1>
+<pre><code>Stability: 5 - Locked</code></pre>
 <p>This module is used for writing unit tests for your applications, you can
-access it with <code>require('assert')</code>.</p>
+access it with <code>require('assert')</code>.
 
-<h3 id="assert.fail">assert.fail(actual, expected, message, operator) <span/></h3>
+</p>
+<h2 id="assert_assert_fail_actual_expected_message_operator">assert.fail(actual, expected, message, operator)<span><a class="mark" href="#assert_assert_fail_actual_expected_message_operator" id=""/></span></h2>
+<p>Throws an exception that displays the values for <code>actual</code> and <code>expected</code> separated by the provided operator.
 
-<p>Throws an exception that displays the values for <code>actual</code> and <code>expected</code> separated by the provided operator.</p>
+</p>
+<h2 id="assert_assert_value_message_assert_ok_value_message">assert(value, message), assert.ok(value, [message])<span><a class="mark" href="#assert_assert_value_message_assert_ok_value_message" id=""/></span></h2>
+<p>Tests if value is truthy, it is equivalent to <code>assert.equal(true, !!value, message);</code>
 
-<h3 id="assert_assert.ok">assert(value, message), assert.ok(value, [message]) <span/></h3>
+</p>
+<h2 id="assert_assert_equal_actual_expected_message">assert.equal(actual, expected, [message])<span><a class="mark" href="#assert_assert_equal_actual_expected_message" id=""/></span></h2>
+<p>Tests shallow, coercive equality with the equal comparison operator ( <code>==</code> ).
 
-<p>Tests if value is a <code>true</code> value, it is equivalent to <code>assert.equal(true, value, message);</code></p>
+</p>
+<h2 id="assert_assert_notequal_actual_expected_message">assert.notEqual(actual, expected, [message])<span><a class="mark" href="#assert_assert_notequal_actual_expected_message" id=""/></span></h2>
+<p>Tests shallow, coercive non-equality with the not equal comparison operator ( <code>!=</code> ).
 
-<h3 id="assert.equal">assert.equal(actual, expected, [message]) <span/></h3>
+</p>
+<h2 id="assert_assert_deepequal_actual_expected_message">assert.deepEqual(actual, expected, [message])<span><a class="mark" href="#assert_assert_deepequal_actual_expected_message" id=""/></span></h2>
+<p>Tests for deep equality.
 
-<p>Tests shallow, coercive equality with the equal comparison operator ( <code>==</code> ).</p>
+</p>
+<h2 id="assert_assert_notdeepequal_actual_expected_message">assert.notDeepEqual(actual, expected, [message])<span><a class="mark" href="#assert_assert_notdeepequal_actual_expected_message" id=""/></span></h2>
+<p>Tests for any deep inequality.
 
-<h3 id="assert.notEqual">assert.notEqual(actual, expected, [message]) <span/></h3>
+</p>
+<h2 id="assert_assert_strictequal_actual_expected_message">assert.strictEqual(actual, expected, [message])<span><a class="mark" href="#assert_assert_strictequal_actual_expected_message" id=""/></span></h2>
+<p>Tests strict equality, as determined by the strict equality operator ( <code>===</code> )
 
-<p>Tests shallow, coercive non-equality with the not equal comparison operator ( <code>!=</code> ).</p>
+</p>
+<h2 id="assert_assert_notstrictequal_actual_expected_message">assert.notStrictEqual(actual, expected, [message])<span><a class="mark" href="#assert_assert_notstrictequal_actual_expected_message" id=""/></span></h2>
+<p>Tests strict non-equality, as determined by the strict not equal operator ( <code>!==</code> )
 
-<h3 id="assert.deepEqual">assert.deepEqual(actual, expected, [message]) <span/></h3>
-
-<p>Tests for deep equality.</p>
-
-<h3 id="assert.notDeepEqual">assert.notDeepEqual(actual, expected, [message]) <span/></h3>
-
-<p>Tests for any deep inequality.</p>
-
-<h3 id="assert.strictEqual">assert.strictEqual(actual, expected, [message]) <span/></h3>
-
-<p>Tests strict equality, as determined by the strict equality operator ( <code>===</code> )</p>
-
-<h3 id="assert.notStrictEqual">assert.notStrictEqual(actual, expected, [message]) <span/></h3>
-
-<p>Tests strict non-equality, as determined by the strict not equal operator ( <code>!==</code> )</p>
-
-<h3 id="assert.throws">assert.throws(block, [error], [message]) <span/></h3>
-
+</p>
+<h2 id="assert_assert_throws_block_error_message">assert.throws(block, [error], [message])<span><a class="mark" href="#assert_assert_throws_block_error_message" id=""/></span></h2>
 <p>Expects <code>block</code> to throw an error. <code>error</code> can be constructor, regexp or 
-validation function.</p>
+validation function.
 
-<p>Validate instanceof using constructor:</p>
+</p>
+<p>Validate instanceof using constructor:
 
+</p>
 <pre><code>assert.throws(
   function() {
     throw new Error("Wrong value");
   },
   Error
 );</code></pre>
+<p>Validate error message using RegExp:
 
-<p>Validate error message using RegExp:</p>
-
+</p>
 <pre><code>assert.throws(
   function() {
     throw new Error("Wrong value");
   },
   /value/
 );</code></pre>
+<p>Custom error validation:
 
-<p>Custom error validation:</p>
-
+</p>
 <pre><code>assert.throws(
   function() {
     throw new Error("Wrong value");
@@ -80,17 +84,18 @@ validation function.</p>
   },
   "unexpected error"
 );</code></pre>
+<h2 id="assert_assert_doesnotthrow_block_error_message">assert.doesNotThrow(block, [error], [message])<span><a class="mark" href="#assert_assert_doesnotthrow_block_error_message" id=""/></span></h2>
+<p>Expects <code>block</code> not to throw an error, see assert.throws for details.
 
-<h3 id="assert.doesNotThrow">assert.doesNotThrow(block, [error], [message]) <span/></h3>
-
-<p>Expects <code>block</code> not to throw an error, see assert.throws for details.</p>
-
-<h3 id="assert.ifError">assert.ifError(value) <span/></h3>
-
+</p>
+<h2 id="assert_assert_iferror_value">assert.ifError(value)<span><a class="mark" href="#assert_assert_iferror_value" id=""/></span></h2>
 <p>Tests if value is not a false value, throws if it is a true value. Useful when
-testing the first argument, <code>error</code> in callbacks.</p>
+testing the first argument, <code>error</code> in callbacks.
+</p>
+
+          </div>
         </div>
     </div>
     
-    
+
   </body></html>

@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-timers">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="timers">Timers <span/></h2>
+          
 
-<h3 id="setTimeout">setTimeout(callback, delay, [arg], [...]) <span/></h3>
+          <div id="apicontent">
+            <h1 id="timers_timers">Timers<span><a class="mark" href="#timers_timers" id=""/></span></h1>
+<pre><code>Stability: 5 - Locked</code></pre>
+<p>All of the timer functions are globals.  You do not need to <code>require()</code>
+this module in order to use them.
 
+</p>
+<h2 id="timers_settimeout_callback_delay_arg">setTimeout(callback, delay, [arg], [...])<span><a class="mark" href="#timers_settimeout_callback_delay_arg" id=""/></span></h2>
 <p>To schedule execution of a one-time <code>callback</code> after <code>delay</code> milliseconds. Returns a
 <code>timeoutId</code> for possible use with <code>clearTimeout()</code>. Optionally you can
-also pass arguments to the callback.</p>
+also pass arguments to the callback.
 
+</p>
 <p>It is important to note that your callback will probably not be called in exactly
 <code>delay</code> milliseconds - Node.js makes no guarantees about the exact timing of when
 the callback will fire, nor of the ordering things will fire in. The callback will
-be called as close as possible to the time specified.</p>
+be called as close as possible to the time specified.
 
-<h3 id="clearTimeout">clearTimeout(timeoutId) <span/></h3>
+</p>
+<h2 id="timers_cleartimeout_timeoutid">clearTimeout(timeoutId)<span><a class="mark" href="#timers_cleartimeout_timeoutid" id=""/></span></h2>
+<p>Prevents a timeout from triggering.
 
-<p>Prevents a timeout from triggering.</p>
-
-<h3 id="setInterval">setInterval(callback, delay, [arg], [...]) <span/></h3>
-
+</p>
+<h2 id="timers_setinterval_callback_delay_arg">setInterval(callback, delay, [arg], [...])<span><a class="mark" href="#timers_setinterval_callback_delay_arg" id=""/></span></h2>
 <p>To schedule the repeated execution of <code>callback</code> every <code>delay</code> milliseconds.
 Returns a <code>intervalId</code> for possible use with <code>clearInterval()</code>. Optionally
-you can also pass arguments to the callback.</p>
+you can also pass arguments to the callback.
 
-<h3 id="clearInterval">clearInterval(intervalId) <span/></h3>
+</p>
+<h2 id="timers_clearinterval_intervalid">clearInterval(intervalId)<span><a class="mark" href="#timers_clearinterval_intervalid" id=""/></span></h2>
+<p>Stops a interval from triggering.
+</p>
 
-<p>Stops a interval from triggering.</p>
+          </div>
         </div>
     </div>
     
-    
+
   </body></html>

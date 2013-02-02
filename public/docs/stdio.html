@@ -1,65 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-stdio">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="console">console <span/></h2>
+          
 
-<p>For printing to stdout and stderr.  Similar to the console object functions
-provided by most web browsers, here the output is sent to stdout or stderr.</p>
+          <div id="apicontent">
+            <h1 id="stdio_console">console<span><a class="mark" href="#stdio_console" id=""/></span></h1>
+<pre><code>Stability: 4 - API Frozen</code></pre>
+<ul><li>{Object}</li>
+</ul><!--type=global--><p>For printing to stdout and stderr.  Similar to the console object functions
+provided by most web browsers, here the output is sent to stdout or stderr.
 
-<h3 id="console.log">console.log() <span/></h3>
-
+</p>
+<h2 id="stdio_console_log_data">console.log([data], [...])<span><a class="mark" href="#stdio_console_log_data" id=""/></span></h2>
 <p>Prints to stdout with newline. This function can take multiple arguments in a
-<code>printf()</code>-like way. Example:</p>
+<code>printf()</code>-like way. Example:
 
+</p>
 <pre><code>console.log('count: %d', count);</code></pre>
-
 <p>If formatting elements are not found in the first string then <code>util.inspect</code>
-is used on each argument.
-See <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/util.html#util.format', true)">util.format()</a> for more information.</p>
+is used on each argument.  See <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/util.html#util_util_format_format', true)">util.format()</a> for more information.
 
-<h3 id="console.info">console.info() <span/></h3>
+</p>
+<h2 id="stdio_console_info_data">console.info([data], [...])<span><a class="mark" href="#stdio_console_info_data" id=""/></span></h2>
+<p>Same as <code>console.log</code>.
 
-<p>Same as <code>console.log</code>.</p>
+</p>
+<h2 id="stdio_console_error_data">console.error([data], [...])<span><a class="mark" href="#stdio_console_error_data" id=""/></span></h2>
+<p>Same as <code>console.log</code> but prints to stderr.
 
-<h3 id="console.warn">console.warn() <span/></h3>
+</p>
+<h2 id="stdio_console_warn_data">console.warn([data], [...])<span><a class="mark" href="#stdio_console_warn_data" id=""/></span></h2>
+<p>Same as <code>console.error</code>.
 
-<h3 id="console.error">console.error() <span/></h3>
+</p>
+<h2 id="stdio_console_dir_obj">console.dir(obj)<span><a class="mark" href="#stdio_console_dir_obj" id=""/></span></h2>
+<p>Uses <code>util.inspect</code> on <code>obj</code> and prints resulting string to stdout.
 
-<p>Same as <code>console.log</code> but prints to stderr.</p>
+</p>
+<h2 id="stdio_console_time_label">console.time(label)<span><a class="mark" href="#stdio_console_time_label" id=""/></span></h2>
+<p>Mark a time.
 
-<h3 id="console.dir">console.dir(obj) <span/></h3>
+</p>
+<h2 id="stdio_console_timeend_label">console.timeEnd(label)<span><a class="mark" href="#stdio_console_timeend_label" id=""/></span></h2>
+<p>Finish timer, record output. Example:
 
-<p>Uses <code>util.inspect</code> on <code>obj</code> and prints resulting string to stderr.</p>
-
-<h3 id="console.time">console.time(label) <span/></h3>
-
-<p>Mark a time.</p>
-
-<h3 id="console.timeEnd">console.timeEnd(label) <span/></h3>
-
-<p>Finish timer, record output. Example</p>
-
+</p>
 <pre><code>console.time('100-elements');
 for (var i = 0; i &lt; 100; i++) {
   ;
 }
 console.timeEnd('100-elements');</code></pre>
+<h2 id="stdio_console_trace_label">console.trace(label)<span><a class="mark" href="#stdio_console_trace_label" id=""/></span></h2>
+<p>Print a stack trace to stderr of the current position.
 
-<h3 id="console.trace">console.trace() <span/></h3>
+</p>
+<h2 id="stdio_console_assert_expression_message">console.assert(expression, [message])<span><a class="mark" href="#stdio_console_assert_expression_message" id=""/></span></h2>
+<p>Same as <a href="javascript:void(0);" onclick="javascript:pageLoad('/docs/assert.html#assert_assert_value_message_assert_ok_value_message', true)">assert.ok()</a> where if the <code>expression</code> evaluates as <code>false</code> throw an
+AssertionError with <code>message</code>.
 
-<p>Print a stack trace to stderr of the current position.</p>
+</p>
 
-<h3 id="console.assert">console.assert() <span/></h3>
-
-<p>Same as <code>assert.ok()</code>.</p>
+          </div>
         </div>
     </div>
     
-    
+
   </body></html>

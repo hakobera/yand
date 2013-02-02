@@ -1,101 +1,131 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-events">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="events">Events <span/></h2>
+          
+
+          <div id="apicontent">
+            <h1 id="events_events">Events<span><a class="mark" href="#events_events" id=""/></span></h1>
+<pre><code>Stability: 4 - API Frozen</code></pre>
+<!--type=module-->
 
 <p>Many objects in Node emit events: a <code>net.Server</code> emits an event each time
 a peer connects to it, a <code>fs.readStream</code> emits an event when the file is
 opened. All objects which emit events are instances of <code>events.EventEmitter</code>.
-You can access this module by doing: <code>require("events");</code></p>
+You can access this module by doing: <code>require("events");</code>
 
+</p>
 <p>Typically, event names are represented by a camel-cased string, however,
-there aren't any strict restrictions on that, as any string will be accepted.</p>
+there aren't any strict restrictions on that, as any string will be accepted.
 
+</p>
 <p>Functions can then be attached to objects, to be executed when an event
-is emitted. These functions are called <em>listeners</em>.</p>
+is emitted. These functions are called <em>listeners</em>.
 
-<h3 id="events.EventEmitter">events.EventEmitter <span/></h3>
 
-<p>To access the EventEmitter class, <code>require('events').EventEmitter</code>.</p>
+</p>
+<h2 id="events_class_events_eventemitter">Class: events.EventEmitter<span><a class="mark" href="#events_class_events_eventemitter" id=""/></span></h2>
+<p>To access the EventEmitter class, <code>require('events').EventEmitter</code>.
 
+</p>
 <p>When an <code>EventEmitter</code> instance experiences an error, the typical action is
 to emit an <code>'error'</code> event.  Error events are treated as a special case in node.
 If there is no listener for it, then the default action is to print a stack
-trace and exit the program.</p>
+trace and exit the program.
 
+</p>
 <p>All EventEmitters emit the event <code>'newListener'</code> when new listeners are
-added.</p>
+added.
 
-<h4 id="emitter.addListener">emitter.addListener(event, listener) <span/></h4>
+</p>
+<h3 id="events_emitter_addlistener_event_listener">emitter.addListener(event, listener)<span><a class="mark" href="#events_emitter_addlistener_event_listener" id=""/></span></h3>
+<h3 id="events_emitter_on_event_listener">emitter.on(event, listener)<span><a class="mark" href="#events_emitter_on_event_listener" id=""/></span></h3>
+<p>Adds a listener to the end of the listeners array for the specified event.
 
-<h4 id="emitter.on">emitter.on(event, listener) <span/></h4>
-
-<p>Adds a listener to the end of the listeners array for the specified event.</p>
-
+</p>
 <pre><code>server.on('connection', function (stream) {
   console.log('someone connected!');
 });</code></pre>
-
-<h4 id="emitter.once">emitter.once(event, listener) <span/></h4>
-
+<h3 id="events_emitter_once_event_listener">emitter.once(event, listener)<span><a class="mark" href="#events_emitter_once_event_listener" id=""/></span></h3>
 <p>Adds a <strong>one time</strong> listener for the event. This listener is
 invoked only the next time the event is fired, after which
-it is removed.</p>
+it is removed.
 
+</p>
 <pre><code>server.once('connection', function (stream) {
   console.log('Ah, we have our first user!');
 });</code></pre>
-
-<h4 id="emitter.removeListener">emitter.removeListener(event, listener) <span/></h4>
-
+<h3 id="events_emitter_removelistener_event_listener">emitter.removeListener(event, listener)<span><a class="mark" href="#events_emitter_removelistener_event_listener" id=""/></span></h3>
 <p>Remove a listener from the listener array for the specified event.
-<strong>Caution</strong>: changes array indices in the listener array behind the listener.</p>
+<strong>Caution</strong>: changes array indices in the listener array behind the listener.
 
+</p>
 <pre><code>var callback = function(stream) {
   console.log('someone connected!');
 };
 server.on('connection', callback);
 // ...
 server.removeListener('connection', callback);</code></pre>
+<h3 id="events_emitter_removealllisteners_event">emitter.removeAllListeners([event])<span><a class="mark" href="#events_emitter_removealllisteners_event" id=""/></span></h3>
+<p>Removes all listeners, or those of the specified event.
 
-<h4 id="emitter.removeAllListeners">emitter.removeAllListeners([event]) <span/></h4>
+</p>
+<p>Note that this will <strong>invalidate</strong> any arrays that have previously been
+returned by <code>emitter.listeners(event)</code>.
 
-<p>Removes all listeners, or those of the specified event.</p>
 
-<h4 id="emitter.setMaxListeners">emitter.setMaxListeners(n) <span/></h4>
-
+</p>
+<h3 id="events_emitter_setmaxlisteners_n">emitter.setMaxListeners(n)<span><a class="mark" href="#events_emitter_setmaxlisteners_n" id=""/></span></h3>
 <p>By default EventEmitters will print a warning if more than 10 listeners are
 added for a particular event. This is a useful default which helps finding memory leaks.
 Obviously not all Emitters should be limited to 10. This function allows
-that to be increased. Set to zero for unlimited.</p>
+that to be increased. Set to zero for unlimited.
 
-<h4 id="emitter.listeners">emitter.listeners(event) <span/></h4>
 
-<p>Returns an array of listeners for the specified event. This array can be
-manipulated, e.g. to remove listeners.</p>
+</p>
+<h3 id="events_emitter_listeners_event">emitter.listeners(event)<span><a class="mark" href="#events_emitter_listeners_event" id=""/></span></h3>
+<p>Returns an array of listeners for the specified event.
 
+</p>
 <pre><code>server.on('connection', function (stream) {
   console.log('someone connected!');
 });
 console.log(util.inspect(server.listeners('connection'))); // [ [Function] ]</code></pre>
+<p>This array <strong>may</strong> be a mutable reference to the same underlying list of
+listeners that is used by the event subsystem.  However, certain
+actions (specifically, removeAllListeners) will invalidate this
+reference.
 
-<h4 id="emitter.emit">emitter.emit(event, [arg1], [arg2], [...]) <span/></h4>
+</p>
+<p>If you would like to get a copy of the listeners at a specific point in
+time that is guaranteed not to change, make a copy, for example by doing
+<code>emitter.listeners(event).slice(0)</code>.
 
-<p>Execute each of the listeners in order with the supplied arguments.</p>
+</p>
+<p>In a future release of node, this behavior <strong>may</strong> change to always
+return a copy, for consistency.  In your programs, please do not rely on
+being able to modify the EventEmitter listeners using array methods.
+Always use the 'on' method to add new listeners.
 
-<h4 id="event_newListener_">Event: 'newListener' <span/></h4>
+</p>
+<h3 id="events_emitter_emit_event_arg1_arg2">emitter.emit(event, [arg1], [arg2], [...])<span><a class="mark" href="#events_emitter_emit_event_arg1_arg2" id=""/></span></h3>
+<p>Execute each of the listeners in order with the supplied arguments.
 
-<p><code>function (event, listener) { }</code></p>
+</p>
+<h3 id="events_event_newlistener">Event: 'newListener'<span><a class="mark" href="#events_event_newlistener" id=""/></span></h3>
+<div class="signature"><ul><li><code>event</code> <span class="type">String</span> The event name</li>
+<li><code>listener</code> <span class="type">Function</span> The event handler function</li>
+</ul></div>
+<p>This event is emitted any time someone adds a new listener.
+</p>
 
-<p>This event is emitted any time someone adds a new listener.</p>
+          </div>
         </div>
     </div>
     
-    
+
   </body></html>

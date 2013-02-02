@@ -1,81 +1,120 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-util">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="util">util <span/></h2>
+          
 
+          <div id="apicontent">
+            <h1 id="util_util">util<span><a class="mark" href="#util_util" id=""/></span></h1>
+<pre><code>Stability: 5 - Locked</code></pre>
 <p>These functions are in the module <code>'util'</code>. Use <code>require('util')</code> to access
-them.</p>
+them.
 
-<h3 id="util.format">util.format() <span/></h3>
 
-<p>Returns a formatted string using the first argument as a <code>printf</code>-like format.</p>
+</p>
+<h2 id="util_util_format_format">util.format(format, [...])<span><a class="mark" href="#util_util_format_format" id=""/></span></h2>
+<p>Returns a formatted string using the first argument as a <code>printf</code>-like format.
 
+</p>
 <p>The first argument is a string that contains zero or more <em>placeholders</em>.
 Each placeholder is replaced with the converted value from its corresponding
-argument. Supported placeholders are:</p>
+argument. Supported placeholders are:
 
-<ul><li><code>%s</code> - String.</li><li><code>%d</code> - Number (both integer and float).</li><li><code>%j</code> - JSON.</li><li><code>%%</code> - single percent sign (<code>'%'</code>). This does not consume an argument.</li></ul><p>If the placeholder does not have a corresponding argument, the placeholder is
-not replaced.</p>
+</p>
+<ul><li><code>%s</code> - String.</li>
+<li><code>%d</code> - Number (both integer and float).</li>
+<li><code>%j</code> - JSON.</li>
+<li><code>%</code> - single percent sign (<code>'%'</code>). This does not consume an argument.</li>
+</ul><p>If the placeholder does not have a corresponding argument, the placeholder is
+not replaced.
 
+</p>
 <pre><code>util.format('%s:%s', 'foo'); // 'foo:%s'</code></pre>
-
 <p>If there are more arguments than placeholders, the extra arguments are
 converted to strings with <code>util.inspect()</code> and these strings are concatenated,
-delimited by a space.</p>
+delimited by a space.
 
+</p>
 <pre><code>util.format('%s:%s', 'foo', 'bar', 'baz'); // 'foo:bar baz'</code></pre>
-
 <p>If the first argument is not a format string then <code>util.format()</code> returns
 a string that is the concatenation of all its arguments separated by spaces.
-Each argument is converted to a string with <code>util.inspect()</code>.</p>
+Each argument is converted to a string with <code>util.inspect()</code>.
 
+</p>
 <pre><code>util.format(1, 2, 3); // '1 2 3'</code></pre>
-
-<h3 id="util.debug">util.debug(string) <span/></h3>
-
+<h2 id="util_util_debug_string">util.debug(string)<span><a class="mark" href="#util_util_debug_string" id=""/></span></h2>
 <p>A synchronous output function. Will block the process and
-output <code>string</code> immediately to <code>stderr</code>.</p>
+output <code>string</code> immediately to <code>stderr</code>.
 
+</p>
 <pre><code>require('util').debug('message on stderr');</code></pre>
+<h2 id="util_util_error">util.error([...])<span><a class="mark" href="#util_util_error" id=""/></span></h2>
+<p>Same as <code>util.debug()</code> except this will output all arguments immediately to
+<code>stderr</code>.
 
-<h3 id="util.log">util.log(string) <span/></h3>
+</p>
+<h2 id="util_util_puts">util.puts([...])<span><a class="mark" href="#util_util_puts" id=""/></span></h2>
+<p>A synchronous output function. Will block the process and output all arguments
+to <code>stdout</code> with newlines after each argument.
 
-<p>Output with timestamp on <code>stdout</code>.</p>
+</p>
+<h2 id="util_util_print">util.print([...])<span><a class="mark" href="#util_util_print" id=""/></span></h2>
+<p>A synchronous output function. Will block the process, cast each argument to a
+string then output to <code>stdout</code>. Does not place newlines after each argument.
 
+</p>
+<h2 id="util_util_log_string">util.log(string)<span><a class="mark" href="#util_util_log_string" id=""/></span></h2>
+<p>Output with timestamp on <code>stdout</code>.
+
+</p>
 <pre><code>require('util').log('Timestamped message.');</code></pre>
+<h2 id="util_util_inspect_object_showhidden_depth_colors">util.inspect(object, [showHidden], [depth], [colors])<span><a class="mark" href="#util_util_inspect_object_showhidden_depth_colors" id=""/></span></h2>
+<p>Return a string representation of <code>object</code>, which is useful for debugging.
 
-<h3 id="util.inspect">util.inspect(object, [showHidden], [depth], [colors]) <span/></h3>
-
-<p>Return a string representation of <code>object</code>, which is useful for debugging.</p>
-
+</p>
 <p>If <code>showHidden</code> is <code>true</code>, then the object's non-enumerable properties will be
-shown too. Defaults to <code>false</code>.</p>
+shown too. Defaults to <code>false</code>.
 
+</p>
 <p>If <code>depth</code> is provided, it tells <code>inspect</code> how many times to recurse while
-formatting the object. This is useful for inspecting large complicated objects.</p>
+formatting the object. This is useful for inspecting large complicated objects.
 
+</p>
 <p>The default is to only recurse twice.  To make it recurse indefinitely, pass
-in <code>null</code> for <code>depth</code>.</p>
+in <code>null</code> for <code>depth</code>.
 
+</p>
 <p>If <code>colors</code> is <code>true</code>, the output will be styled with ANSI color codes.
-Defaults to <code>false</code>.</p>
+Defaults to <code>false</code>.
 
-<p>Example of inspecting all properties of the <code>util</code> object:</p>
+</p>
+<p>Example of inspecting all properties of the <code>util</code> object:
 
+</p>
 <pre><code>var util = require('util');
 
 console.log(util.inspect(util, true, null));</code></pre>
+<p>Objects also may define their own <code>inspect(depth)</code> function which <code>util.inspect()</code>
+will invoke and use the result of when inspecting the object:
 
-<h3 id="util.isArray">util.isArray(object) <span/></h3>
+</p>
+<pre><code>var util = require('util');
 
-<p>Returns <code>true</code> if the given "object" is an <code>Array</code>. <code>false</code> otherwise.</p>
+var obj = { name: 'nate' };
+obj.inspect = function(depth) {
+  return '{' + this.name + '}';
+};
 
+util.inspect(obj);
+  // "{nate}"</code></pre>
+<h2 id="util_util_isarray_object">util.isArray(object)<span><a class="mark" href="#util_util_isarray_object" id=""/></span></h2>
+<p>Returns <code>true</code> if the given "object" is an <code>Array</code>. <code>false</code> otherwise.
+
+</p>
 <pre><code>var util = require('util');
 
 util.isArray([])
@@ -84,11 +123,10 @@ util.isArray(new Array)
   // true
 util.isArray({})
   // false</code></pre>
+<h2 id="util_util_isregexp_object">util.isRegExp(object)<span><a class="mark" href="#util_util_isregexp_object" id=""/></span></h2>
+<p>Returns <code>true</code> if the given "object" is a <code>RegExp</code>. <code>false</code> otherwise.
 
-<h3 id="util.isRegExp">util.isRegExp(object) <span/></h3>
-
-<p>Returns <code>true</code> if the given "object" is a <code>RegExp</code>. <code>false</code> otherwise.</p>
-
+</p>
 <pre><code>var util = require('util');
 
 util.isRegExp(/some regexp/)
@@ -97,11 +135,10 @@ util.isRegExp(new RegExp('another regexp'))
   // true
 util.isRegExp({})
   // false</code></pre>
+<h2 id="util_util_isdate_object">util.isDate(object)<span><a class="mark" href="#util_util_isdate_object" id=""/></span></h2>
+<p>Returns <code>true</code> if the given "object" is a <code>Date</code>. <code>false</code> otherwise.
 
-<h3 id="util.isDate">util.isDate(object) <span/></h3>
-
-<p>Returns <code>true</code> if the given "object" is a <code>Date</code>. <code>false</code> otherwise.</p>
-
+</p>
 <pre><code>var util = require('util');
 
 util.isDate(new Date())
@@ -110,11 +147,10 @@ util.isDate(Date())
   // false (without 'new' returns a String)
 util.isDate({})
   // false</code></pre>
+<h2 id="util_util_iserror_object">util.isError(object)<span><a class="mark" href="#util_util_iserror_object" id=""/></span></h2>
+<p>Returns <code>true</code> if the given "object" is an <code>Error</code>. <code>false</code> otherwise.
 
-<h3 id="util.isError">util.isError(object) <span/></h3>
-
-<p>Returns <code>true</code> if the given "object" is an <code>Error</code>. <code>false</code> otherwise.</p>
-
+</p>
 <pre><code>var util = require('util');
 
 util.isError(new Error())
@@ -123,27 +159,27 @@ util.isError(new TypeError())
   // true
 util.isError({ name: 'Error', message: 'an error occurred' })
   // false</code></pre>
-
-<h3 id="util.pump">util.pump(readableStream, writableStream, [callback]) <span/></h3>
-
-<p>Experimental</p>
-
+<h2 id="util_util_pump_readablestream_writablestream_callback">util.pump(readableStream, writableStream, [callback])<span><a class="mark" href="#util_util_pump_readablestream_writablestream_callback" id=""/></span></h2>
+<pre><code>Stability: 0 - Deprecated: Use readableStream.pipe(writableStream)</code></pre>
 <p>Read the data from <code>readableStream</code> and send it to the <code>writableStream</code>.
 When <code>writableStream.write(data)</code> returns <code>false</code> <code>readableStream</code> will be
 paused until the <code>drain</code> event occurs on the <code>writableStream</code>. <code>callback</code> gets
 an error as its only argument and is called when <code>writableStream</code> is closed or
-when an error occurs.</p>
+when an error occurs.
 
-<h3 id="util.inherits">util.inherits(constructor, superConstructor) <span/></h3>
 
+</p>
+<h2 id="util_util_inherits_constructor_superconstructor">util.inherits(constructor, superConstructor)<span><a class="mark" href="#util_util_inherits_constructor_superconstructor" id=""/></span></h2>
 <p>Inherit the prototype methods from one
 <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/constructor" target="_blank">constructor</a>
 into another.  The prototype of <code>constructor</code> will be set to a new
-object created from <code>superConstructor</code>.</p>
+object created from <code>superConstructor</code>.
 
+</p>
 <p>As an additional convenience, <code>superConstructor</code> will be accessible
-through the <code>constructor.super_</code> property.</p>
+through the <code>constructor.super_</code> property.
 
+</p>
 <pre><code>var util = require("util");
 var events = require("events");
 
@@ -166,8 +202,10 @@ stream.on("data", function(data) {
     console.log('Received data: "' + data + '"');
 })
 stream.write("It works!"); // Received data: "It works!"</code></pre>
+
+          </div>
         </div>
     </div>
     
-    
+
   </body></html>

@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-path">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="path">Path <span/></h2>
+          
 
+          <div id="apicontent">
+            <h1 id="path_path">Path<span><a class="mark" href="#path_path" id=""/></span></h1>
+<pre><code>Stability: 3 - Stable</code></pre>
 <p>This module contains utilities for handling and transforming file
 paths.  Almost all these methods perform only string transformations.
-The file system is not consulted to check whether paths are valid.</p>
+The file system is not consulted to check whether paths are valid.
 
-<p><code>path.exists</code> and <code>path.existsSync</code> are the exceptions, and should
-logically be found in the fs module as they do access the file system.</p>
+</p>
+<p>Use <code>require('path')</code> to use this module.  The following methods are provided:
 
-<p>Use <code>require('path')</code> to use this module.  The following methods are provided:</p>
+</p>
+<h2 id="path_path_normalize_p">path.normalize(p)<span><a class="mark" href="#path_path_normalize_p" id=""/></span></h2>
+<p>Normalize a string path, taking care of <code>'..'</code> and <code>'.'</code> parts.
 
-<h3 id="path.normalize">path.normalize(p) <span/></h3>
-
-<p>Normalize a string path, taking care of <code>'..'</code> and <code>'.'</code> parts.</p>
-
+</p>
 <p>When multiple slashes are found, they're replaced by a single one;
 when the path contains a trailing slash, it is preserved.
-On windows backslashes are used. </p>
+On windows backslashes are used. 
 
-<p>Example:</p>
+</p>
+<p>Example:
 
+</p>
 <pre><code>path.normalize('/foo/bar//baz/asdf/quux/..')
 // returns
 '/foo/bar/baz/asdf'</code></pre>
-
-<h3 id="path.join">path.join([path1], [path2], [...]) <span/></h3>
-
+<h2 id="path_path_join_path1_path2">path.join([path1], [path2], [...])<span><a class="mark" href="#path_path_join_path1_path2" id=""/></span></h2>
 <p>Join all arguments together and normalize the resulting path.
-Non-string arguments are ignored.</p>
+Non-string arguments are ignored.
 
-<p>Example:</p>
+</p>
+<p>Example:
 
+</p>
 <pre><code>path.join('/foo', 'bar', 'baz/asdf', 'quux', '..')
 // returns
 '/foo/bar/baz/asdf'
@@ -46,34 +49,36 @@ Non-string arguments are ignored.</p>
 path.join('foo', {}, 'bar')
 // returns
 'foo/bar'</code></pre>
+<h2 id="path_path_resolve_from_to">path.resolve([from ...], to)<span><a class="mark" href="#path_path_resolve_from_to" id=""/></span></h2>
+<p>Resolves <code>to</code> to an absolute path.
 
-<h3 id="path.resolve">path.resolve([from ...], to) <span/></h3>
-
-<p>Resolves <code>to</code> to an absolute path.</p>
-
+</p>
 <p>If <code>to</code> isn't already absolute <code>from</code> arguments are prepended in right to left
 order, until an absolute path is found. If after using all <code>from</code> paths still
 no absolute path is found, the current working directory is used as well. The
 resulting path is normalized, and trailing slashes are removed unless the path 
-gets resolved to the root directory. Non-string arguments are ignored.</p>
+gets resolved to the root directory. Non-string arguments are ignored.
 
-<p>Another way to think of it is as a sequence of <code>cd</code> commands in a shell.</p>
+</p>
+<p>Another way to think of it is as a sequence of <code>cd</code> commands in a shell.
 
+</p>
 <pre><code>path.resolve('foo/bar', '/tmp/file/', '..', 'a/../subfile')</code></pre>
+<p>Is similar to:
 
-<p>Is similar to:</p>
-
+</p>
 <pre><code>cd foo/bar
 cd /tmp/file/
 cd ..
 cd a/../subfile
 pwd</code></pre>
-
 <p>The difference is that the different paths don't need to exist and may also be
-files.</p>
+files.
 
-<p>Examples:</p>
+</p>
+<p>Examples:
 
+</p>
 <pre><code>path.resolve('/foo/bar', './baz')
 // returns
 '/foo/bar/baz'
@@ -85,19 +90,19 @@ path.resolve('/foo/bar', '/tmp/file/')
 path.resolve('wwwroot', 'static_files/png/', '../gif/image.gif')
 // if currently in /home/myself/node, it returns
 '/home/myself/node/wwwroot/static_files/gif/image.gif'</code></pre>
+<h2 id="path_path_relative_from_to">path.relative(from, to)<span><a class="mark" href="#path_path_relative_from_to" id=""/></span></h2>
+<p>Solve the relative path from <code>from</code> to <code>to</code>.
 
-<h3 id="path.relative">path.relative(from, to) <span/></h3>
-
-<p>Solve the relative path from <code>from</code> to <code>to</code>.</p>
-
+</p>
 <p>At times we have two absolute paths, and we need to derive the relative
 path from one to the other.  This is actually the reverse transform of
-<code>path.resolve</code>, which means we see that:</p>
+<code>path.resolve</code>, which means we see that:
 
+</p>
 <pre><code>path.resolve(from, path.relative(from, to)) == path.resolve(to)</code></pre>
+<p>Examples:
 
-<p>Examples:</p>
-
+</p>
 <pre><code>path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb')
 // returns
 '..\\..\\impl\\bbb'
@@ -105,23 +110,23 @@ path from one to the other.  This is actually the reverse transform of
 path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
 // returns
 '../../impl/bbb'</code></pre>
+<h2 id="path_path_dirname_p">path.dirname(p)<span><a class="mark" href="#path_path_dirname_p" id=""/></span></h2>
+<p>Return the directory name of a path.  Similar to the Unix <code>dirname</code> command.
 
-<h3 id="path.dirname">path.dirname(p) <span/></h3>
+</p>
+<p>Example:
 
-<p>Return the directory name of a path.  Similar to the Unix <code>dirname</code> command.</p>
-
-<p>Example:</p>
-
+</p>
 <pre><code>path.dirname('/foo/bar/baz/asdf/quux')
 // returns
 '/foo/bar/baz/asdf'</code></pre>
+<h2 id="path_path_basename_p_ext">path.basename(p, [ext])<span><a class="mark" href="#path_path_basename_p_ext" id=""/></span></h2>
+<p>Return the last portion of a path.  Similar to the Unix <code>basename</code> command.
 
-<h3 id="path.basename">path.basename(p, [ext]) <span/></h3>
+</p>
+<p>Example:
 
-<p>Return the last portion of a path.  Similar to the Unix <code>basename</code> command.</p>
-
-<p>Example:</p>
-
+</p>
 <pre><code>path.basename('/foo/bar/baz/asdf/quux.html')
 // returns
 'quux.html'
@@ -129,14 +134,13 @@ path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
 path.basename('/foo/bar/baz/asdf/quux.html', '.html')
 // returns
 'quux'</code></pre>
-
-<h3 id="path.extname">path.extname(p) <span/></h3>
-
+<h2 id="path_path_extname_p">path.extname(p)<span><a class="mark" href="#path_path_extname_p" id=""/></span></h2>
 <p>Return the extension of the path, from the last '.' to end of string
 in the last portion of the path.  If there is no '.' in the last portion
 of the path or the first character of it is '.', then it returns
-an empty string.  Examples:</p>
+an empty string.  Examples:
 
+</p>
 <pre><code>path.extname('index.html')
 // returns
 '.html'
@@ -148,21 +152,26 @@ path.extname('index.')
 path.extname('index')
 // returns
 ''</code></pre>
+<h2 id="path_path_sep">path.sep<span><a class="mark" href="#path_path_sep" id=""/></span></h2>
+<p>The platform-specific file separator. <code>'\\'</code> or <code>'/'</code>.
 
-<h3 id="path.exists">path.exists(p, [callback]) <span/></h3>
+</p>
+<p>An example on linux:
 
-<p>Test whether or not the given path exists by checking with the file system.
-Then call the <code>callback</code> argument with either true or false.  Example:</p>
+</p>
+<pre><code>'foo/bar/baz'.split(path.sep)
+// returns
+['foo', 'bar', 'baz']</code></pre>
+<p>An example on windows:
 
-<pre><code>path.exists('/etc/passwd', function (exists) {
-  util.debug(exists ? "it's there" : "no passwd!");
-});</code></pre>
+</p>
+<pre><code>'foo\\bar\\baz'.split(path.sep)
+// returns
+['foo', 'bar', 'baz']</code></pre>
 
-<h3 id="path.existsSync">path.existsSync(p) <span/></h3>
-
-<p>Synchronous version of <code>path.exists</code>.</p>
+          </div>
         </div>
     </div>
     
-    
+
   </body></html>

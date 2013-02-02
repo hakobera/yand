@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-dns">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="dNS">DNS <span/></h2>
+          
 
+          <div id="apicontent">
+            <h1 id="dns_dns">DNS<span><a class="mark" href="#dns_dns" id=""/></span></h1>
+<pre><code>Stability: 3 - Stable</code></pre>
 <p>Use <code>require('dns')</code> to access this module. All methods in the dns module
 use C-Ares except for <code>dns.lookup</code> which uses <code>getaddrinfo(3)</code> in a thread
 pool. C-Ares is much faster than <code>getaddrinfo</code> but the system resolver is
 more constant with how other programs operate. When a user does
 <code>net.connect(80, 'google.com')</code> or <code>http.get({ host: 'google.com' })</code> the
 <code>dns.lookup</code> method is used. Users who need to do a large number of look ups
-quickly should use the methods that go through C-Ares.</p>
+quickly should use the methods that go through C-Ares.
 
+</p>
 <p>Here is an example which resolves <code>'www.google.com'</code> then reverse
-resolves the IP addresses which are returned.</p>
+resolves the IP addresses which are returned.
 
+</p>
 <pre><code>var dns = require('dns');
 
 dns.resolve4('www.google.com', function (err, addresses) {
@@ -30,99 +34,137 @@ dns.resolve4('www.google.com', function (err, addresses) {
   addresses.forEach(function (a) {
     dns.reverse(a, function (err, domains) {
       if (err) {
-        console.log('reverse for ' + a + ' failed: ' +
-          err.message);
-      } else {
-        console.log('reverse for ' + a + ': ' +
-          JSON.stringify(domains));
+        throw err;
       }
+
+      console.log('reverse for ' + a + ': ' + JSON.stringify(domains));
     });
   });
 });</code></pre>
-
-<h3 id="dns.lookup">dns.lookup(domain, [family], callback) <span/></h3>
-
+<h2 id="dns_dns_lookup_domain_family_callback">dns.lookup(domain, [family], callback)<span><a class="mark" href="#dns_dns_lookup_domain_family_callback" id=""/></span></h2>
 <p>Resolves a domain (e.g. <code>'google.com'</code>) into the first found A (IPv4) or
 AAAA (IPv6) record.
 The <code>family</code> can be the integer <code>4</code> or <code>6</code>. Defaults to <code>null</code> that indicates
-both Ip v4 and v6 address family.</p>
+both Ip v4 and v6 address family.
 
+</p>
 <p>The callback has arguments <code>(err, address, family)</code>.  The <code>address</code> argument
 is a string representation of a IP v4 or v6 address. The <code>family</code> argument
 is either the integer 4 or 6 and denotes the family of <code>address</code> (not
-necessarily the value initially passed to <code>lookup</code>).</p>
+necessarily the value initially passed to <code>lookup</code>).
 
-<h3 id="dns.resolve">dns.resolve(domain, [rrtype], callback) <span/></h3>
+</p>
+<p>On error, <code>err</code> is an <code>Error</code> object, where <code>err.code</code> is the error code.
+Keep in mind that <code>err.code</code> will be set to <code>'ENOENT'</code> not only when
+the domain does not exist but also when the lookup fails in other ways
+such as no available file descriptors.
 
+
+</p>
+<h2 id="dns_dns_resolve_domain_rrtype_callback">dns.resolve(domain, [rrtype], callback)<span><a class="mark" href="#dns_dns_resolve_domain_rrtype_callback" id=""/></span></h2>
 <p>Resolves a domain (e.g. <code>'google.com'</code>) into an array of the record types
 specified by rrtype. Valid rrtypes are <code>'A'</code> (IPV4 addresses, default),
 <code>'AAAA'</code> (IPV6 addresses), <code>'MX'</code> (mail exchange records), <code>'TXT'</code> (text
 records), <code>'SRV'</code> (SRV records), <code>'PTR'</code> (used for reverse IP lookups),
-<code>'NS'</code> (name server records) and <code>'CNAME'</code> (canonical name records).</p>
+<code>'NS'</code> (name server records) and <code>'CNAME'</code> (canonical name records).
 
+</p>
 <p>The callback has arguments <code>(err, addresses)</code>.  The type of each item
 in <code>addresses</code> is determined by the record type, and described in the
-documentation for the corresponding lookup methods below.</p>
+documentation for the corresponding lookup methods below.
 
-<p>On error, <code>err</code> would be an instanceof <code>Error</code> object, where <code>err.errno</code> is
-one of the error codes listed below and <code>err.message</code> is a string describing
-the error in English.</p>
+</p>
+<p>On error, <code>err</code> is an <code>Error</code> object, where <code>err.code</code> is
+one of the error codes listed below.
 
-<h3 id="dns.resolve4">dns.resolve4(domain, callback) <span/></h3>
 
+</p>
+<h2 id="dns_dns_resolve4_domain_callback">dns.resolve4(domain, callback)<span><a class="mark" href="#dns_dns_resolve4_domain_callback" id=""/></span></h2>
 <p>The same as <code>dns.resolve()</code>, but only for IPv4 queries (<code>A</code> records).
 <code>addresses</code> is an array of IPv4 addresses (e.g.
-<code>['74.125.79.104', '74.125.79.105', '74.125.79.106']</code>).</p>
+<code>['74.125.79.104', '74.125.79.105', '74.125.79.106']</code>).
 
-<h3 id="dns.resolve6">dns.resolve6(domain, callback) <span/></h3>
+</p>
+<h2 id="dns_dns_resolve6_domain_callback">dns.resolve6(domain, callback)<span><a class="mark" href="#dns_dns_resolve6_domain_callback" id=""/></span></h2>
+<p>The same as <code>dns.resolve4()</code> except for IPv6 queries (an <code>AAAA</code> query).
 
-<p>The same as <code>dns.resolve4()</code> except for IPv6 queries (an <code>AAAA</code> query).</p>
 
-<h3 id="dns.resolveMx">dns.resolveMx(domain, callback) <span/></h3>
+</p>
+<h2 id="dns_dns_resolvemx_domain_callback">dns.resolveMx(domain, callback)<span><a class="mark" href="#dns_dns_resolvemx_domain_callback" id=""/></span></h2>
+<p>The same as <code>dns.resolve()</code>, but only for mail exchange queries (<code>MX</code> records).
 
-<p>The same as <code>dns.resolve()</code>, but only for mail exchange queries (<code>MX</code> records).</p>
-
+</p>
 <p><code>addresses</code> is an array of MX records, each with a priority and an exchange
-attribute (e.g. <code>[{'priority': 10, 'exchange': 'mx.example.com'},...]</code>).</p>
+attribute (e.g. <code>[{'priority': 10, 'exchange': 'mx.example.com'},...]</code>).
 
-<h3 id="dns.resolveTxt">dns.resolveTxt(domain, callback) <span/></h3>
-
+</p>
+<h2 id="dns_dns_resolvetxt_domain_callback">dns.resolveTxt(domain, callback)<span><a class="mark" href="#dns_dns_resolvetxt_domain_callback" id=""/></span></h2>
 <p>The same as <code>dns.resolve()</code>, but only for text queries (<code>TXT</code> records).
 <code>addresses</code> is an array of the text records available for <code>domain</code> (e.g.,
-<code>['v=spf1 ip4:0.0.0.0 ~all']</code>).</p>
+<code>['v=spf1 ip4:0.0.0.0 ~all']</code>).
 
-<h3 id="dns.resolveSrv">dns.resolveSrv(domain, callback) <span/></h3>
-
+</p>
+<h2 id="dns_dns_resolvesrv_domain_callback">dns.resolveSrv(domain, callback)<span><a class="mark" href="#dns_dns_resolvesrv_domain_callback" id=""/></span></h2>
 <p>The same as <code>dns.resolve()</code>, but only for service records (<code>SRV</code> records).
 <code>addresses</code> is an array of the SRV records available for <code>domain</code>. Properties
 of SRV records are priority, weight, port, and name (e.g.,
-<code>[{'priority': 10, {'weight': 5, 'port': 21223, 'name': 'service.example.com'}, ...]</code>).</p>
+<code>[{'priority': 10, {'weight': 5, 'port': 21223, 'name': 'service.example.com'}, ...]</code>).
 
-<h3 id="dns.reverse">dns.reverse(ip, callback) <span/></h3>
-
-<p>Reverse resolves an ip address to an array of domain names.</p>
-
-<p>The callback has arguments <code>(err, domains)</code>.</p>
-
-<h3 id="dns.resolveNs">dns.resolveNs(domain, callback) <span/></h3>
-
+</p>
+<h2 id="dns_dns_resolvens_domain_callback">dns.resolveNs(domain, callback)<span><a class="mark" href="#dns_dns_resolvens_domain_callback" id=""/></span></h2>
 <p>The same as <code>dns.resolve()</code>, but only for name server records (<code>NS</code> records).
 <code>addresses</code> is an array of the name server records available for <code>domain</code>
-(e.g., <code>['ns1.example.com', 'ns2.example.com']</code>).</p>
+(e.g., <code>['ns1.example.com', 'ns2.example.com']</code>).
 
-<h3 id="dns.resolveCname">dns.resolveCname(domain, callback) <span/></h3>
-
+</p>
+<h2 id="dns_dns_resolvecname_domain_callback">dns.resolveCname(domain, callback)<span><a class="mark" href="#dns_dns_resolvecname_domain_callback" id=""/></span></h2>
 <p>The same as <code>dns.resolve()</code>, but only for canonical name records (<code>CNAME</code>
 records). <code>addresses</code> is an array of the canonical name records available for
-<code>domain</code> (e.g., <code>['bar.example.com']</code>).</p>
+<code>domain</code> (e.g., <code>['bar.example.com']</code>).
 
-<p>If there an an error, <code>err</code> will be non-null and an instanceof the Error
-object.</p>
+</p>
+<h2 id="dns_dns_reverse_ip_callback">dns.reverse(ip, callback)<span><a class="mark" href="#dns_dns_reverse_ip_callback" id=""/></span></h2>
+<p>Reverse resolves an ip address to an array of domain names.
 
-<p>Each DNS query can return an error code.</p>
+</p>
+<p>The callback has arguments <code>(err, domains)</code>.
 
-<ul><li><code>dns.TEMPFAIL</code>: timeout, SERVFAIL or similar.</li><li><code>dns.PROTOCOL</code>: got garbled reply.</li><li><code>dns.NXDOMAIN</code>: domain does not exists.</li><li><code>dns.NODATA</code>: domain exists but no data of reqd type.</li><li><code>dns.NOMEM</code>: out of memory while processing.</li><li><code>dns.BADQUERY</code>: the query is malformed.</li></ul></div>
+</p>
+<p>On error, <code>err</code> is an <code>Error</code> object, where <code>err.code</code> is
+one of the error codes listed below.
+
+</p>
+<h2 id="dns_error_codes">Error codes<span><a class="mark" href="#dns_error_codes" id=""/></span></h2>
+<p>Each DNS query can return one of the following error codes:
+
+</p>
+<ul><li><code>dns.NODATA</code>: DNS server returned answer with no data.</li>
+<li><code>dns.FORMERR</code>: DNS server claims query was misformatted.</li>
+<li><code>dns.SERVFAIL</code>: DNS server returned general failure.</li>
+<li><code>dns.NOTFOUND</code>: Domain name not found.</li>
+<li><code>dns.NOTIMP</code>: DNS server does not implement requested operation.</li>
+<li><code>dns.REFUSED</code>: DNS server refused query.</li>
+<li><code>dns.BADQUERY</code>: Misformatted DNS query.</li>
+<li><code>dns.BADNAME</code>: Misformatted domain name.</li>
+<li><code>dns.BADFAMILY</code>: Unsupported address family.</li>
+<li><code>dns.BADRESP</code>: Misformatted DNS reply.</li>
+<li><code>dns.CONNREFUSED</code>: Could not contact DNS servers.</li>
+<li><code>dns.TIMEOUT</code>: Timeout while contacting DNS servers.</li>
+<li><code>dns.EOF</code>: End of file.</li>
+<li><code>dns.FILE</code>: Error reading file.</li>
+<li><code>dns.NOMEM</code>: Out of memory.</li>
+<li><code>dns.DESTRUCTION</code>: Channel is being destroyed.</li>
+<li><code>dns.BADSTR</code>: Misformatted string.</li>
+<li><code>dns.BADFLAGS</code>: Illegal flags specified.</li>
+<li><code>dns.NONAME</code>: Given hostname is not numeric.</li>
+<li><code>dns.BADHINTS</code>: Illegal hints flags specified.</li>
+<li><code>dns.NOTINITIALIZED</code>: c-ares library initialization not yet performed.</li>
+<li><code>dns.LOADIPHLPAPI</code>: Error loading iphlpapi.dll.</li>
+<li><code>dns.ADDRGETNETWORKPARAMS</code>: Could not find GetNetworkParams function.</li>
+<li><code>dns.CANCELLED</code>: DNS query cancelled.</li>
+</ul></div>
+        </div>
     </div>
     
-    
+
   </body></html>

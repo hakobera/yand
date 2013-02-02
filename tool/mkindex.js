@@ -34,7 +34,9 @@ function makeTree(path, parent, li) {
 mkdirp.sync('tmp', parseInt('744', 8));
 
 console.time('processTime');
-cache.keys('http://nodejs.org/docs/latest/api/*', function(err, keys) {
+var version = process.env.NODE_VERSION || 'latest';
+var baseKey = 'http://nodejs.org/docs/' + version + '/api/*';
+cache.keys(baseKey, function(err, keys) {
   var uri = keys[0],
       root = [];
 

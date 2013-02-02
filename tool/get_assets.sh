@@ -4,7 +4,14 @@ if [ ! -e public/docs/assets ]; then
   mkdir -p public/docs/assets
 fi
 
-for path in style.css sh.css sh_main.js sh_javascript.min.js
+for asset in style.css sh.css
 do
-  curl http://nodejs.org/docs/latest/api/assets/${path} > public/docs/assets/${path}
+  echo "Download http://nodejs.org/docs/${NODE_VERSION}/api/assets/${asset}"
+  curl http://nodejs.org/docs/${NODE_VERSION}/api/assets/${asset} > public/docs/assets/${asset}
+done
+
+for asset in sh_main.js sh_javascript.min.js
+do
+  echo "Download http://nodejs.org/docs/${NODE_VERSION}/${asset}"
+  curl http://nodejs.org/docs/${NODE_VERSION}/${asset} > public/docs/assets/${asset}
 done

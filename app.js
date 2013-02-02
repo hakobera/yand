@@ -1,29 +1,19 @@
-var connect = require('connect'),
-    stylus = require('stylus');
+var http = require('http'),
+    st = require('st');
 
-function compile(str, path) {
-  return stylus(str)
-    .set('filename', path)
-    .set('warn', true)
-    .set('compress', true);
-}
+var mount = st({
+  path: 'public/',
+  url: '/',
+  index: 'index.html',
+  passthrough: false
+});
 
-var server = null;
-if (process.env.NODE_ENV === 'production') {
-  server = connect(
-    connect.staticCache(),
-    connect.static(__dirname + '/public')
-  );
-} else {
-  server = connect(
-    stylus.middleware({
-      src: __dirname + '/public',
-      compile: compile
-    }),
-    connect.static(__dirname + '/public')
-  );
-}
+var server = http.createServer(function (req, res) {
+  mount(req, res);
+});
 
 var port = process.env.PORT || 3000;
-server.listen(port);
-console.log('server is running at port %d in %s mode', port, process.env.NODE_ENV);
+var mode = process.env.NODE_ENV || 'development';
+server.listen(port, function () {
+  console.log('server is running at port %d in %s mode', port, mode);
+});

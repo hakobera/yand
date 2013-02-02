@@ -29,7 +29,6 @@ $(function() {
           target = _this.find(selector);
           window.scrollTo(0, target.position().top + 15);
         }
-
         target.addClass('highlight');
       }
 

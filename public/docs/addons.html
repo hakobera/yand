@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-addons">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="addons">Addons <span/></h2>
+          
 
+          <div id="apicontent">
+            <h1 id="addons_addons">Addons<span><a class="mark" href="#addons_addons" id=""/></span></h1>
 <p>Addons are dynamically linked shared objects. They can provide glue to C and
 C++ libraries. The API (at the moment) is rather complex, involving
-knowledge of several libraries:</p>
+knowledge of several libraries:
 
+</p>
 <ul><li><p>V8 JavaScript, a C++ library. Used for interfacing with JavaScript:
 creating objects, calling functions, etc.  Documented mostly in the
 <code>v8.h</code> header file (<code>deps/v8/include/v8.h</code> in the Node source tree),
-which is also available <a href="http://izs.me/v8-docs/main.html" target="_blank">online</a>.</p></li><li><p><a href="https://github.com/joyent/libuv" target="_blank">libuv</a>, C event loop library. Anytime one
+which is also available <a href="http://izs.me/v8-docs/main.html" target="_blank">online</a>.</p>
+</li>
+<li><p><a href="https://github.com/joyent/libuv" target="_blank">libuv</a>, C event loop library. Anytime one
 needs to wait for a file descriptor to become readable, wait for a timer, or
 wait for a signal to received one will need to interface with libuv. That is,
-if you perform any I/O, libuv will need to be used.</p></li><li><p>Internal Node libraries. Most importantly is the <code>node::ObjectWrap</code>
-class which you will likely want to derive from.</p></li><li><p>Others. Look in <code>deps/</code> for what else is available.</p></li></ul><p>Node statically compiles all its dependencies into the executable. When
+if you perform any I/O, libuv will need to be used.</p>
+</li>
+<li><p>Internal Node libraries. Most importantly is the <code>node::ObjectWrap</code>
+class which you will likely want to derive from.</p>
+</li>
+<li><p>Others. Look in <code>deps/</code> for what else is available.</p>
+</li>
+</ul><p>Node statically compiles all its dependencies into the executable. When
 compiling your module, you don't need to worry about linking to any of these
-libraries.</p>
+libraries.
 
-<h3 id="hello_world">Hello world <span/></h3>
 
+</p>
+<h2 id="addons_hello_world">Hello world<span><a class="mark" href="#addons_hello_world" id=""/></span></h2>
 <p>To get started let's make a small Addon which is the C++ equivalent of
-the following Javascript code:</p>
+the following JavaScript code:
 
+</p>
 <pre><code>exports.hello = function() { return 'world'; };</code></pre>
+<p>First we create a file <code>hello.cc</code>:
 
-<p>First we create a file <code>hello.cc</code>:</p>
-
+</p>
 <pre><code>#include &lt;node.h&gt;
 #include &lt;v8.h&gt;
 
@@ -48,91 +60,94 @@ void init(Handle&lt;Object&gt; target) {
       FunctionTemplate::New(Method)-&gt;GetFunction());
 }
 NODE_MODULE(hello, init)</code></pre>
+<p>Note that all Node addons must export an initialization function:
 
-<p>Note that all Node addons must export an initialization function:</p>
-
+</p>
 <pre><code>void Initialize (Handle&lt;Object&gt; target);
 NODE_MODULE(module_name, Initialize)</code></pre>
+<p>There is no semi-colon after <code>NODE_MODULE</code> as it's not a function (see <code>node.h</code>).
 
-<p>There is no semi-colon after <code>NODE_MODULE</code> as it's not a function (see <code>node.h</code>).</p>
-
+</p>
 <p>The <code>module_name</code> needs to match the filename of the final binary (minus the
-.node suffix).</p>
+.node suffix).
 
+</p>
 <p>The source code needs to be built into <code>hello.node</code>, the binary Addon. To
-do this we create a file called <code>wscript</code> which is python code and looks
-like this:</p>
+do this we create a file called <code>binding.gyp</code> which describes the configuration
+to build your module in a JSON-like format. This file gets compiled by
+<a href="https://github.com/TooTallNate/node-gyp" target="_blank">node-gyp</a>.
 
-<pre><code>srcdir = '.'
-blddir = 'build'
-VERSION = '0.0.1'
+</p>
+<pre><code>{
+  "targets": [
+    {
+      "target_name": "hello",
+      "sources": [ "hello.cc" ]
+    }
+  ]
+}</code></pre>
+<p>The next step is to generate the appropriate project build files for the
+current platform. Use <code>node-gyp configure</code> for that.
 
-def set_options(opt):
-  opt.tool_options('compiler_cxx')
+</p>
+<p>Now you will have either a <code>Makefile</code> (on Unix platforms) or a <code>vcxproj</code> file
+(on Windows) in the <code>build/</code> directory. Next invoke the <code>node-gyp build</code>
+command.
 
-def configure(conf):
-  conf.check_tool('compiler_cxx')
-  conf.check_tool('node_addon')
+</p>
+<p>Now you have your compiled <code>.node</code> bindings file! The compiled bindings end up
+in <code>build/Release/</code>.
 
-def build(bld):
-  obj = bld.new_task_gen('cxx', 'shlib', 'node_addon')
-  obj.target = 'hello'
-  obj.source = 'hello.cc'</code></pre>
-
-<p>Running <code>node-waf configure build</code> will create a file
-<code>build/default/hello.node</code> which is our Addon.</p>
-
-<p><code>node-waf</code> is just <a href="http://code.google.com/p/waf" target="_blank">WAF</a>, the python-based build system. <code>node-waf</code> is
-provided for the ease of users.</p>
-
+</p>
 <p>You can now use the binary addon in a Node project <code>hello.js</code> by pointing <code>require</code> to
-the recently built module:</p>
+the recently built <code>hello.node</code> module:
 
+</p>
 <pre><code>var addon = require('./build/Release/hello');
 
 console.log(addon.hello()); // 'world'</code></pre>
-
 <p>Please see patterns below for further information or
-<a href="https://github.com/pietern/hiredis-node" target="_blank">https://github.com/pietern/hiredis-node</a> for an example in production.</p>
+</p>
+<p><a href="https://github.com/arturadib/node-qt" target="_blank">https://github.com/arturadib/node-qt</a> for an example in production.
 
-<h2 id="addon_patterns">Addon patterns <span/></h2>
 
+</p>
+<h2 id="addons_addon_patterns">Addon patterns<span><a class="mark" href="#addons_addon_patterns" id=""/></span></h2>
 <p>Below are some addon patterns to help you get started. Consult the online
 <a href="http://izs.me/v8-docs/main.html" target="_blank">v8 reference</a> for help with the various v8
 calls, and v8's <a href="http://code.google.com/apis/v8/embed.html" target="_blank">Embedder's Guide</a>
 for an explanation of several concepts used such as handles, scopes,
-function templates, etc.</p>
+function templates, etc.
 
-<p>To compile these examples, create the <code>wscript</code> file below and run
-<code>node-waf configure build</code>:</p>
+</p>
+<p>In order to use these examples you need to compile them using <code>node-gyp</code>.
+Create the following <code>binding.gyp</code> file:
 
-<pre><code>srcdir = '.'
-blddir = 'build'
-VERSION = '0.0.1'
-
-def set_options(opt):
-  opt.tool_options('compiler_cxx')
-
-def configure(conf):
-  conf.check_tool('compiler_cxx')
-  conf.check_tool('node_addon')
-
-def build(bld):
-  obj = bld.new_task_gen('cxx', 'shlib', 'node_addon')
-  obj.target = 'addon'
-  obj.source = ['addon.cc']</code></pre>
-
+</p>
+<pre><code>{
+  "targets": [
+    {
+      "target_name": "addon",
+      "sources": [ "addon.cc" ]
+    }
+  ]
+}</code></pre>
 <p>In cases where there is more than one <code>.cc</code> file, simply add the file name to the
-<code>obj.source</code> array, e.g.:</p>
+<code>sources</code> array, e.g.:
 
-<pre><code>obj.source = ['addon.cc', 'myexample.cc']</code></pre>
+</p>
+<pre><code>"sources": ["addon.cc", "myexample.cc"]</code></pre>
+<p>Now that you have your <code>binding.gyp</code> ready, you can configure and build the
+addon:
 
-<h4 id="function_arguments">Function arguments <span/></h4>
-
+</p>
+<pre><code>$ node-gyp configure build</code></pre>
+<h3 id="addons_function_arguments">Function arguments<span><a class="mark" href="#addons_function_arguments" id=""/></span></h3>
 <p>The following pattern illustrates how to read arguments from JavaScript
 function calls and return a result. This is the main and only needed source
-<code>addon.cc</code>:</p>
+<code>addon.cc</code>:
 
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 
@@ -162,18 +177,17 @@ void Init(Handle&lt;Object&gt; target) {
 }
 
 NODE_MODULE(addon, Init)</code></pre>
+<p>You can test it with the following JavaScript snippet:
 
-<p>You can test it with the following JavaScript snippet:</p>
-
+</p>
 <pre><code>var addon = require('./build/Release/addon');
 
 console.log( 'This should be eight:', addon.add(3,5) );</code></pre>
-
-<h4 id="callbacks">Callbacks <span/></h4>
-
+<h3 id="addons_callbacks">Callbacks<span><a class="mark" href="#addons_callbacks" id=""/></span></h3>
 <p>You can pass JavaScript functions to a C++ function and execute them from
-there. Here's <code>addon.cc</code>:</p>
+there. Here's <code>addon.cc</code>:
 
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 
@@ -196,21 +210,20 @@ void Init(Handle&lt;Object&gt; target) {
 }
 
 NODE_MODULE(addon, Init)</code></pre>
+<p>To test it run the following JavaScript snippet:
 
-<p>To test it run the following JavaScript snippet:</p>
-
+</p>
 <pre><code>var addon = require('./build/Release/addon');
 
 addon.runCallback(function(msg){
   console.log(msg); // 'hello world'
 });</code></pre>
-
-<h4 id="object_factory">Object factory <span/></h4>
-
+<h3 id="addons_object_factory">Object factory<span><a class="mark" href="#addons_object_factory" id=""/></span></h3>
 <p>You can create and return new objects from within a C++ function with this
 <code>addon.cc</code> pattern, which returns an object with property <code>msg</code> that echoes
-the string passed to <code>createObject()</code>:</p>
+the string passed to <code>createObject()</code>:
 
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 
@@ -231,20 +244,19 @@ void Init(Handle&lt;Object&gt; target) {
 }
 
 NODE_MODULE(addon, Init)</code></pre>
+<p>To test it in JavaScript:
 
-<p>To test it in JavaScript:</p>
-
+</p>
 <pre><code>var addon = require('./build/Release/addon');
 
 var obj1 = addon.createObject('hello');
 var obj2 = addon.createObject('world');
 console.log(obj1.msg+' '+obj2.msg); // 'hello world'</code></pre>
-
-<h4 id="function_factory">Function factory <span/></h4>
-
+<h3 id="addons_function_factory">Function factory<span><a class="mark" href="#addons_function_factory" id=""/></span></h3>
 <p>This pattern illustrates how to create and return a JavaScript function that
-wraps a C++ function:</p>
+wraps a C++ function:
 
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 
@@ -271,20 +283,19 @@ void Init(Handle&lt;Object&gt; target) {
 }
 
 NODE_MODULE(addon, Init)</code></pre>
+<p>To test:
 
-<p>To test:</p>
-
+</p>
 <pre><code>var addon = require('./build/Release/addon');
 
 var fn = addon.createFunction();
 console.log(fn()); // 'hello world'</code></pre>
-
-<h4 id="wrapping_C_objects">Wrapping C++ objects <span/></h4>
-
+<h3 id="addons_wrapping_c_objects">Wrapping C++ objects<span><a class="mark" href="#addons_wrapping_c_objects" id=""/></span></h3>
 <p>Here we will create a wrapper for a C++ object/class <code>MyObject</code> that can be
 instantiated in JavaScript through the <code>new</code> operator. First prepare the main
-module <code>addon.cc</code>:</p>
+module <code>addon.cc</code>:
 
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 #include "myobject.h"
@@ -296,9 +307,9 @@ void InitAll(Handle&lt;Object&gt; target) {
 }
 
 NODE_MODULE(addon, InitAll)</code></pre>
+<p>Then in <code>myobject.h</code> make your wrapper inherit from <code>node::ObjectWrap</code>:
 
-<p>Then in <code>myobject.h</code> make your wrapper inherit from <code>node::ObjectWrap</code>:</p>
-
+</p>
 <pre><code>#ifndef MYOBJECT_H
 #define MYOBJECT_H
 
@@ -318,11 +329,11 @@ class MyObject : public node::ObjectWrap {
 };
 
 #endif</code></pre>
-
 <p>And in <code>myobject.cc</code> implement the various methods that you want to expose.
 Here we expose the method <code>plusOne</code> by adding it to the constructor's
-prototype:</p>
+prototype:
 
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 #include "myobject.h"
@@ -363,27 +374,26 @@ Handle&lt;Value&gt; MyObject::PlusOne(const Arguments&amp; args) {
 
   return scope.Close(Number::New(obj-&gt;counter_));
 }</code></pre>
+<p>Test it with:
 
-<p>Test it with:</p>
-
+</p>
 <pre><code>var addon = require('./build/Release/addon');
 
 var obj = new addon.MyObject(10);
 console.log( obj.plusOne() ); // 11
 console.log( obj.plusOne() ); // 12
 console.log( obj.plusOne() ); // 13</code></pre>
-
-<h4 id="factory_of_wrapped_objects">Factory of wrapped objects <span/></h4>
-
+<h3 id="addons_factory_of_wrapped_objects">Factory of wrapped objects<span><a class="mark" href="#addons_factory_of_wrapped_objects" id=""/></span></h3>
 <p>This is useful when you want to be able to create native objects without
-explicitly instantiating them with the <code>new</code> operator in JavaScript, e.g.</p>
+explicitly instantiating them with the <code>new</code> operator in JavaScript, e.g.
 
+</p>
 <pre><code>var obj = addon.createObject();
 // instead of:
 // var obj = new addon.Object();</code></pre>
+<p>Let's register our <code>createObject</code> method in <code>addon.cc</code>:
 
-<p>Let's register our <code>createObject</code> method in <code>addon.cc</code>:</p>
-
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 #include "myobject.h"
@@ -403,10 +413,10 @@ void InitAll(Handle&lt;Object&gt; target) {
 }
 
 NODE_MODULE(addon, InitAll)</code></pre>
-
 <p>In <code>myobject.h</code> we now introduce the static method <code>NewInstance</code> that takes
-care of instantiating the object (i.e. it does the job of <code>new</code> in JavaScript):</p>
+care of instantiating the object (i.e. it does the job of <code>new</code> in JavaScript):
 
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #ifndef MYOBJECT_H
 #define MYOBJECT_H
@@ -429,9 +439,9 @@ class MyObject : public node::ObjectWrap {
 };
 
 #endif</code></pre>
+<p>The implementation is similar to the above in <code>myobject.cc</code>:
 
-<p>The implementation is similar to the above in <code>myobject.cc</code>:</p>
-
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 #include "myobject.h"
@@ -483,9 +493,9 @@ Handle&lt;Value&gt; MyObject::PlusOne(const Arguments&amp; args) {
 
   return scope.Close(Number::New(obj-&gt;counter_));
 }</code></pre>
+<p>Test it with:
 
-<p>Test it with:</p>
-
+</p>
 <pre><code>var addon = require('./build/Release/addon');
 
 var obj = addon.createObject(10);
@@ -497,14 +507,13 @@ var obj2 = addon.createObject(20);
 console.log( obj2.plusOne() ); // 21
 console.log( obj2.plusOne() ); // 22
 console.log( obj2.plusOne() ); // 23</code></pre>
-
-<h4 id="passing_wrapped_objects_around">Passing wrapped objects around <span/></h4>
-
+<h3 id="addons_passing_wrapped_objects_around">Passing wrapped objects around<span><a class="mark" href="#addons_passing_wrapped_objects_around" id=""/></span></h3>
 <p>In addition to wrapping and returning C++ objects, you can pass them around
 by unwrapping them with Node's <code>node::ObjectWrap::Unwrap</code> helper function.
 In the following <code>addon.cc</code> we introduce a function <code>add()</code> that can take on two
-<code>MyObject</code> objects:</p>
+<code>MyObject</code> objects:
 
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 #include "myobject.h"
@@ -539,10 +548,10 @@ void InitAll(Handle&lt;Object&gt; target) {
 }
 
 NODE_MODULE(addon, InitAll)</code></pre>
-
 <p>To make things interesting we introduce a public method in <code>myobject.h</code> so we
-can probe private values after unwrapping the object:</p>
+can probe private values after unwrapping the object:
 
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #ifndef MYOBJECT_H
 #define MYOBJECT_H
@@ -565,9 +574,9 @@ class MyObject : public node::ObjectWrap {
 };
 
 #endif</code></pre>
+<p>The implementation of <code>myobject.cc</code> is similar as before:
 
-<p>The implementation of <code>myobject.cc</code> is similar as before:</p>
-
+</p>
 <pre><code>#define BUILDING_NODE_EXTENSION
 #include &lt;node.h&gt;
 #include "myobject.h"
@@ -607,9 +616,9 @@ Handle&lt;Value&gt; MyObject::NewInstance(const Arguments&amp; args) {
 
   return scope.Close(instance);
 }</code></pre>
+<p>Test it with:
 
-<p>Test it with:</p>
-
+</p>
 <pre><code>var addon = require('./build/Release/addon');
 
 var obj1 = addon.createObject(10);
@@ -617,8 +626,10 @@ var obj2 = addon.createObject(20);
 var result = addon.add(obj1, obj2);
 
 console.log(result); // 30</code></pre>
+
+          </div>
         </div>
     </div>
     
-    
+
   </body></html>

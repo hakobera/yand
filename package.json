@@ -1,19 +1,24 @@
 {
   "name": "yand",
   "description": "Yet Another Node.js Documentation",
-  "version": "0.1.2",
+  "version": "0.8.18",
   "dependencies": {
-    "connect": "1.x",
-    "stylus": "0.22.6"
+    "st": "0.1.2"
   },
   "devDependencies": {
+    "stylus": ">= 0.22.6",
     "libxmlext": ">=1.0.0",
     "libxmljs": ">=0.4.3",
     "request": ">=2.2.9",
     "mkdirp": ">=0.0.1",
     "async": ">=0.0.1",
     "redis": ">=0.0.1",
+    "uglify-js": "*",
     "mocha": "*",
     "should": "*"
+  },
+  "enigines": {
+    "node": ">= 0.8.14 < 0.9.0",
+    "npm": ">= 1.1.65"    
   }
 }

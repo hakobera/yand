@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-debugger">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="debugger">Debugger <span/></h2>
+          
+
+          <div id="apicontent">
+            <h1 id="debugger_debugger">Debugger<span><a class="mark" href="#debugger_debugger" id=""/></span></h1>
+<pre><code>Stability: 3 - Stable</code></pre>
+<!-- type=misc -->
 
 <p>V8 comes with an extensive debugger which is accessible out-of-process via a
 simple <a href="http://code.google.com/p/v8/wiki/DebuggerProtocol" target="_blank">TCP protocol</a>.
 Node has a built-in client for this debugger. To use this, start Node with the
-<code>debug</code> argument; a prompt will appear:</p>
+<code>debug</code> argument; a prompt will appear:
 
+</p>
 <pre><code>% node debug myscript.js
 &lt; debugger listening on port 5858
 connecting... ok
@@ -22,13 +27,14 @@ break in /home/indutny/Code/git/indutny/myscript.js:1
   2 setTimeout(function () {
   3   debugger;
 debug&gt;</code></pre>
-
 <p>Node's debugger client doesn't support the full range of commands, but
 simple step and inspection is possible. By putting the statement <code>debugger;</code>
-into the source code of your script, you will enable a breakpoint.</p>
+into the source code of your script, you will enable a breakpoint.
 
-<p>For example, suppose <code>myscript.js</code> looked like this:</p>
+</p>
+<p>For example, suppose <code>myscript.js</code> looked like this:
 
+</p>
 <pre><code>// myscript.js
 x = 5;
 setTimeout(function () {
@@ -36,9 +42,9 @@ setTimeout(function () {
   console.log("world");
 }, 1000);
 console.log("hello");</code></pre>
+<p>Then once the debugger is run, it will break on line 4.
 
-<p>Then once the debugger is run, it will break on line 4.</p>
-
+</p>
 <pre><code>% node debug myscript.js
 &lt; debugger listening on port 5858
 connecting... ok
@@ -77,45 +83,67 @@ break in /home/indutny/Code/git/indutny/myscript.js:5
   7
 debug&gt; quit
 %</code></pre>
-
 <p>The <code>repl</code> command allows you to evaluate code remotely. The <code>next</code> command
 steps over to the next line. There are a few other commands available and more
-to come. Type <code>help</code> to see others.</p>
+to come. Type <code>help</code> to see others.
 
-<h3 id="watchers">Watchers <span/></h3>
-
+</p>
+<h2 id="debugger_watchers">Watchers<span><a class="mark" href="#debugger_watchers" id=""/></span></h2>
 <p>You can watch expression and variable values while debugging your code.
 On every breakpoint each expression from the watchers list will be evaluated
 in the current context and displayed just before the breakpoint's source code
-listing.</p>
+listing.
 
+</p>
 <p>To start watching an expression, type <code>watch("my_expression")</code>. <code>watchers</code>
 prints the active watchers. To remove a watcher, type
-<code>unwatch("my_expression")</code>.</p>
+<code>unwatch("my_expression")</code>.
 
-<h3 id="commands_reference">Commands reference <span/></h3>
-
-<h4 id="stepping">Stepping <span/></h4>
-
-<ul><li><code>cont</code>, <code>c</code> - Continue execution</li><li><code>next</code>, <code>n</code> - Step next</li><li><code>step</code>, <code>s</code> - Step in</li><li><code>out</code>, <code>o</code> - Step out</li></ul><h4 id="breakpoints">Breakpoints <span/></h4>
-
-<ul><li><code>setBreakpoint()</code>, <code>sb()</code> - Set breakpoint on current line</li><li><code>setBreakpoint('fn()')</code>, <code>sb(...)</code> - Set breakpoint on a first statement in
-functions body</li><li><code>setBreakpoint('script.js', 1)</code>, <code>sb(...)</code> - Set breakpoint on first line of
-script.js</li><li><code>clearBreakpoint</code>, <code>cb(...)</code> - Clear breakpoint</li></ul><h4 id="info">Info <span/></h4>
-
-<ul><li><code>backtrace</code>, <code>bt</code> - Print backtrace of current execution frame</li><li><code>list(5)</code> - List scripts source code with 5 line context (5 lines before and
-after)</li><li><code>watch(expr)</code> - Add expression to watch list</li><li><code>unwatch(expr)</code> - Remove expression from watch list</li><li><code>watchers</code> - List all watchers and their values (automatically listed on each
-breakpoint)</li><li><code>repl</code> - Open debugger's repl for evaluation in debugging script's context</li></ul><h4 id="execution_control">Execution control <span/></h4>
-
-<ul><li><code>run</code> - Run script (automatically runs on debugger's start)</li><li><code>restart</code> - Restart script</li><li><code>kill</code> - Kill script</li></ul><h4 id="various">Various <span/></h4>
-
-<ul><li><code>scripts</code> - List all loaded scripts</li><li><code>version</code> - Display v8's version</li></ul><h3 id="advanced_Usage">Advanced Usage <span/></h3>
-
+</p>
+<h2 id="debugger_commands_reference">Commands reference<span><a class="mark" href="#debugger_commands_reference" id=""/></span></h2>
+<h3 id="debugger_stepping">Stepping<span><a class="mark" href="#debugger_stepping" id=""/></span></h3>
+<ul><li><code>cont</code>, <code>c</code> - Continue execution</li>
+<li><code>next</code>, <code>n</code> - Step next</li>
+<li><code>step</code>, <code>s</code> - Step in</li>
+<li><code>out</code>, <code>o</code> - Step out</li>
+<li><code>pause</code> - Pause running code (like pause button in Developer TOols)</li>
+</ul><h3 id="debugger_breakpoints">Breakpoints<span><a class="mark" href="#debugger_breakpoints" id=""/></span></h3>
+<div class="signature"><ul><li><code>setBreakpoint()</code>, <code>sb()</code> - Set breakpoint on current line</li>
+<li><code>setBreakpoint(line)</code>, <code>sb(line)</code> - Set breakpoint on specific line</li>
+<li><code>setBreakpoint('fn()')</code>, <code>sb(...)</code> - Set breakpoint on a first statement in
+functions body</li>
+<li><code>setBreakpoint('script.js', 1)</code>, <code>sb(...)</code> - Set breakpoint on first line of
+script.js</li>
+<li><code>clearBreakpoint</code>, <code>cb(...)</code> - Clear breakpoint</li>
+</ul></div>
+<h3 id="debugger_info">Info<span><a class="mark" href="#debugger_info" id=""/></span></h3>
+<div class="signature"><ul><li><code>backtrace</code>, <code>bt</code> - Print backtrace of current execution frame</li>
+<li><code>list(5)</code> - List scripts source code with 5 line context (5 lines before and
+after)</li>
+<li><code>watch(expr)</code> - Add expression to watch list</li>
+<li><code>unwatch(expr)</code> - Remove expression from watch list</li>
+<li><code>watchers</code> - List all watchers and their values (automatically listed on each
+breakpoint)</li>
+<li><code>repl</code> - Open debugger's repl for evaluation in debugging script's context</li>
+</ul></div>
+<h3 id="debugger_execution_control">Execution control<span><a class="mark" href="#debugger_execution_control" id=""/></span></h3>
+<div class="signature"><ul><li><code>run</code> - Run script (automatically runs on debugger's start)</li>
+<li><code>restart</code> - Restart script</li>
+<li><code>kill</code> - Kill script</li>
+</ul></div>
+<h3 id="debugger_various">Various<span><a class="mark" href="#debugger_various" id=""/></span></h3>
+<div class="signature"><ul><li><code>scripts</code> - List all loaded scripts</li>
+<li><code>version</code> - Display v8's version</li>
+</ul></div>
+<h2 id="debugger_advanced_usage">Advanced Usage<span><a class="mark" href="#debugger_advanced_usage" id=""/></span></h2>
 <p>The V8 debugger can be enabled and accessed either by starting Node with
 the <code>--debug</code> command-line flag or by signaling an existing Node process
-with <code>SIGUSR1</code>.</p>
+with <code>SIGUSR1</code>.
+</p>
+
+          </div>
         </div>
     </div>
     
-    
+
   </body></html>

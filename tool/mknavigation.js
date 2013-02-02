@@ -36,7 +36,8 @@ function renderTree(node, level) {
 
 var categories = [],
     items = require('../tmp/index'),
-    uri = 'http://nodejs.org/docs/latest/api/index.html',
+    version = process.env.NODE_VERSION || 'latest';
+    uri = 'http://nodejs.org/docs/' + version + '/api/index.html',
     page = [
         '<!DOCTYPE html>',
         '<html><body>',
@@ -53,7 +54,7 @@ cache.get(uri, function(err, src) {
 
   var doc = libxml.parseHtmlString(src);
 
-  doc.find("//div[@id='toc']/ul/li/a").forEach(function(a) {
+  doc.find("//div[@id='apicontent']/ul/li/a").forEach(function(a) {
     var href = a.attr('href');
     if (!href) {
       return;

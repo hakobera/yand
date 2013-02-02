@@ -1,126 +1,299 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!DOCTYPE html>
-<html lang="en"><body class="alt apidoc">
+<html lang="en"><body class="alt apidoc" id="api-section-readline">
     
     <div id="content" class="clearfix">
         
 
         <div id="column1" class="interior">
-        
-<h2 id="readline">Readline <span/></h2>
+          
 
+          <div id="apicontent">
+            <h1 id="readline_readline">Readline<span><a class="mark" href="#readline_readline" id=""/></span></h1>
+<pre><code>Stability: 2 - Unstable</code></pre>
 <p>To use this module, do <code>require('readline')</code>. Readline allows reading of a
-stream (such as STDIN) on a line-by-line basis.</p>
+stream (such as <code>process.stdin</code>) on a line-by-line basis.
 
+</p>
 <p>Note that once you've invoked this module, your node program will not
-terminate until you've closed the interface, and the STDIN stream. Here's how
-to allow your program to gracefully terminate:</p>
+terminate until you've closed the interface. Here's how to allow your
+program to gracefully exit:
 
-<pre><code>var rl = require('readline');
+</p>
+<pre><code>var readline = require('readline');
 
-var i = rl.createInterface(process.stdin, process.stdout, null);
-i.question("What do you think of node.js?", function(answer) {
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question("What do you think of node.js? ", function(answer) {
   // TODO: Log the answer in a database
-  console.log("Thank you for your valuable feedback.");
+  console.log("Thank you for your valuable feedback:", answer);
 
-  // These two lines together allow the program to terminate. Without
-  // them, it would run forever.
-  i.close();
-  process.stdin.destroy();
+  rl.close();
 });</code></pre>
+<h2 id="readline_readline_createinterface_options">readline.createInterface(options)<span><a class="mark" href="#readline_readline_createinterface_options" id=""/></span></h2>
+<p>Creates a readline <code>Interface</code> instance. Accepts an "options" Object that takes
+the following values:
 
-<h3 id="rl.createInterface">rl.createInterface(input, output, completer) <span/></h3>
+</p>
+<ul><li><p><code>input</code> - the readable stream to listen to (Required).</p>
+</li>
+<li><p><code>output</code> - the writable stream to write readline data to (Required).</p>
+</li>
+<li><p><code>completer</code> - an optional function that is used for Tab autocompletion. See
+below for an example of using this.</p>
+</li>
+<li><p><code>terminal</code> - pass <code>true</code> if the <code>input</code> and <code>output</code> streams should be
+treated like a TTY, and have ANSI/VT100 escape codes written to it.
+Defaults to checking <code>isTTY</code> on the <code>output</code> stream upon instantiation.</p>
+</li>
+</ul><p>The <code>completer</code> function is given a the current line entered by the user, and
+is supposed to return an Array with 2 entries:
 
-<p>Takes two streams and creates a readline interface. The <code>completer</code> function
-is used for autocompletion. When given a substring, it returns <code>[[substr1,
-substr2, ...], originalsubstring]</code>.</p>
+</p>
+<ol><li><p>An Array with matching entries for the completion.</p>
+</li>
+<li><p>The substring that was used for the matching.</p>
+</li>
+</ol><p>Which ends up looking something like:
+<code>[[substr1, substr2, ...], originalsubstring]</code>.
 
-<p>Also <code>completer</code> can be run in async mode if it accepts two arguments:</p>
+</p>
+<p>Example:
 
-<p>  function completer(linePartial, callback) {
-    callback(null, [['123'], linePartial]);
-  }</p>
+</p>
+<pre><code>function completer(line) {
+  var completions = '.help .error .exit .quit .q'.split(' ')
+  var hits = completions.filter(function(c) { return c.indexOf(line) == 0 })
+  // show all completions if none found
+  return [hits.length ? hits : completions, line]
+}</code></pre>
+<p>Also <code>completer</code> can be run in async mode if it accepts two arguments:
 
+</p>
+<pre><code>function completer(linePartial, callback) {
+  callback(null, [['123'], linePartial]);
+}</code></pre>
 <p><code>createInterface</code> is commonly used with <code>process.stdin</code> and
-<code>process.stdout</code> in order to accept user input:</p>
+<code>process.stdout</code> in order to accept user input:
 
-<pre><code>var readline = require('readline'),
-  rl = readline.createInterface(process.stdin, process.stdout);</code></pre>
+</p>
+<pre><code>var readline = require('readline');
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});</code></pre>
+<p>Once you have a readline instance, you most commonly listen for the
+<code>"line"</code> event.
 
-<h3 id="rl.setPrompt">rl.setPrompt(prompt, length) <span/></h3>
+</p>
+<p>If <code>terminal</code> is <code>true</code> for this instance then the <code>output</code> stream will get
+the best compatibility if it defines an <code>output.columns</code> property, and fires
+a <code>"resize"</code> event on the <code>output</code> if/when the columns ever change
+(<code>process.stdout</code> does this automatically when it is a TTY).
 
+</p>
+<h2 id="readline_class_interface">Class: Interface<span><a class="mark" href="#readline_class_interface" id=""/></span></h2>
+<p>The class that represents a readline interface with an input and output
+stream.
+
+</p>
+<h3 id="readline_rl_setprompt_prompt_length">rl.setPrompt(prompt, length)<span><a class="mark" href="#readline_rl_setprompt_prompt_length" id=""/></span></h3>
 <p>Sets the prompt, for example when you run <code>node</code> on the command line, you see
-<code>&gt; </code>, which is node's prompt.</p>
+<code>&gt; </code>, which is node's prompt.
 
-<h3 id="rl.prompt">rl.prompt() <span/></h3>
-
+</p>
+<h3 id="readline_rl_prompt_preservecursor">rl.prompt([preserveCursor])<span><a class="mark" href="#readline_rl_prompt_preservecursor" id=""/></span></h3>
 <p>Readies readline for input from the user, putting the current <code>setPrompt</code>
-options on a new line, giving the user a new spot to write.</p>
+options on a new line, giving the user a new spot to write. Set <code>preserveCursor</code>
+to <code>true</code> to prevent the cursor placement being reset to <code>0</code>.
 
-<p>&lt;!-- ### rl.getColumns() Not available? --&gt;</p>
+</p>
+<p>This will also resume the <code>input</code> stream used with <code>createInterface</code> if it has
+been paused.
 
-<h3 id="rl.question">rl.question(query, callback) <span/></h3>
-
+</p>
+<h3 id="readline_rl_question_query_callback">rl.question(query, callback)<span><a class="mark" href="#readline_rl_question_query_callback" id=""/></span></h3>
 <p>Prepends the prompt with <code>query</code> and invokes <code>callback</code> with the user's
-response. Displays the query to the user, and then invokes <code>callback</code> with the
-user's response after it has been typed.</p>
+response. Displays the query to the user, and then invokes <code>callback</code>
+with the user's response after it has been typed.
 
-<p>Example usage:</p>
+</p>
+<p>This will also resume the <code>input</code> stream used with <code>createInterface</code> if
+it has been paused.
 
+</p>
+<p>Example usage:
+
+</p>
 <pre><code>interface.question('What is your favorite food?', function(answer) {
   console.log('Oh, so your favorite food is ' + answer);
 });</code></pre>
+<h3 id="readline_rl_pause">rl.pause()<span><a class="mark" href="#readline_rl_pause" id=""/></span></h3>
+<p>Pauses the readline <code>input</code> stream, allowing it to be resumed later if needed.
 
-<h3 id="rl.close">rl.close() <span/></h3>
+</p>
+<h3 id="readline_rl_resume">rl.resume()<span><a class="mark" href="#readline_rl_resume" id=""/></span></h3>
+<p>Resumes the readline <code>input</code> stream.
 
-<p>  Closes tty.</p>
+</p>
+<h3 id="readline_rl_close">rl.close()<span><a class="mark" href="#readline_rl_close" id=""/></span></h3>
+<p>Closes the <code>Interface</code> instance, relinquishing control on the <code>input</code> and
+<code>output</code> streams. The "close" event will also be emitted.
 
-<h3 id="rl.pause">rl.pause() <span/></h3>
+</p>
+<h3 id="readline_rl_write_data_key">rl.write(data, [key])<span><a class="mark" href="#readline_rl_write_data_key" id=""/></span></h3>
+<p>Writes <code>data</code> to <code>output</code> stream. <code>key</code> is an object literal to represent a key
+sequence; available if the terminal is a TTY.
 
-<p>  Pauses tty.</p>
+</p>
+<p>This will also resume the <code>input</code> stream if it has been paused.
 
-<h3 id="rl.resume">rl.resume() <span/></h3>
+</p>
+<p>Example:
 
-<p>  Resumes tty.</p>
+</p>
+<pre><code>rl.write('Delete me!');
+// Simulate ctrl+u to delete the line written previously
+rl.write(null, {ctrl: true, name: 'u'});</code></pre>
+<h2 id="readline_events">Events<span><a class="mark" href="#readline_events" id=""/></span></h2>
+<h3 id="readline_event_line">Event: 'line'<span><a class="mark" href="#readline_event_line" id=""/></span></h3>
+<p><code>function (line) {}</code>
 
-<h3 id="rl.write">rl.write() <span/></h3>
+</p>
+<p>Emitted whenever the <code>input</code> stream receives a <code>\n</code>, usually received when the
+user hits enter, or return. This is a good hook to listen for user input.
 
-<p>  Writes to tty.</p>
+</p>
+<p>Example of listening for <code>line</code>:
 
-<h3 id="event_line_">Event: 'line' <span/></h3>
-
-<p><code>function (line) {}</code></p>
-
-<p>Emitted whenever the <code>in</code> stream receives a <code>\n</code>, usually received when the
-user hits enter, or return. This is a good hook to listen for user input.</p>
-
-<p>Example of listening for <code>line</code>:</p>
-
+</p>
 <pre><code>rl.on('line', function (cmd) {
   console.log('You just typed: '+cmd);
 });</code></pre>
+<h3 id="readline_event_pause">Event: 'pause'<span><a class="mark" href="#readline_event_pause" id=""/></span></h3>
+<p><code>function () {}</code>
 
-<h3 id="event_close_">Event: 'close' <span/></h3>
+</p>
+<p>Emitted whenever the <code>input</code> stream is paused.
 
-<p><code>function () {}</code></p>
+</p>
+<p>Also emitted whenever the <code>input</code> stream is not paused and receives the
+<code>SIGCONT</code> event. (See events <code>SIGTSTP</code> and <code>SIGCONT</code>)
 
-<p>Emitted whenever the <code>in</code> stream receives a <code>^C</code> or <code>^D</code>, respectively known
-as <code>SIGINT</code> and <code>EOT</code>. This is a good way to know the user is finished using
-your program.</p>
+</p>
+<p>Example of listening for <code>pause</code>:
 
-<p>Example of listening for <code>close</code>, and exiting the program afterward:</p>
-
-<pre><code>rl.on('close', function() {
-  console.log('goodbye!');
-  process.exit(0);
+</p>
+<pre><code>rl.on('pause', function() {
+  console.log('Readline paused.');
 });</code></pre>
+<h3 id="readline_event_resume">Event: 'resume'<span><a class="mark" href="#readline_event_resume" id=""/></span></h3>
+<p><code>function () {}</code>
 
+</p>
+<p>Emitted whenever the <code>input</code> stream is resumed.
+
+</p>
+<p>Example of listening for <code>resume</code>:
+
+</p>
+<pre><code>rl.on('resume', function() {
+  console.log('Readline resumed.');
+});</code></pre>
+<h3 id="readline_event_close">Event: 'close'<span><a class="mark" href="#readline_event_close" id=""/></span></h3>
+<p><code>function () {}</code>
+
+</p>
+<p>Emitted when <code>close()</code> is called.
+
+</p>
+<p>Also emitted when the <code>input</code> stream receives its "end" event. The <code>Interface</code>
+instance should be considered "finished" once this is emitted. For example, when
+the <code>input</code> stream receives <code>^D</code>, respectively known as <code>EOT</code>.
+
+</p>
+<p>This event is also called if there is no <code>SIGINT</code> event listener present when
+the <code>input</code> stream receives a <code>^C</code>, respectively known as <code>SIGINT</code>.
+
+</p>
+<h3 id="readline_event_sigint">Event: 'SIGINT'<span><a class="mark" href="#readline_event_sigint" id=""/></span></h3>
+<p><code>function () {}</code>
+
+</p>
+<p>Emitted whenever the <code>input</code> stream receives a <code>^C</code>, respectively known as
+<code>SIGINT</code>. If there is no <code>SIGINT</code> event listener present when the <code>input</code>
+stream receives a <code>SIGINT</code>, <code>pause</code> will be triggered.
+
+</p>
+<p>Example of listening for <code>SIGINT</code>:
+
+</p>
+<pre><code>rl.on('SIGINT', function() {
+  rl.question('Are you sure you want to exit?', function(answer) {
+    if (answer.match(/^y(es)?$/i)) rl.pause();
+  });
+});</code></pre>
+<h3 id="readline_event_sigtstp">Event: 'SIGTSTP'<span><a class="mark" href="#readline_event_sigtstp" id=""/></span></h3>
+<p><code>function () {}</code>
+
+</p>
+<p><strong>This does not work on Windows.</strong>
+
+</p>
+<p>Emitted whenever the <code>input</code> stream receives a <code>^Z</code>, respectively known as
+<code>SIGTSTP</code>. If there is no <code>SIGTSTP</code> event listener present when the <code>input</code>
+stream receives a <code>SIGTSTP</code>, the program will be sent to the background.
+
+</p>
+<p>When the program is resumed with <code>fg</code>, the <code>pause</code> and <code>SIGCONT</code> events will be
+emitted. You can use either to resume the stream.
+
+</p>
+<p>The <code>pause</code> and <code>SIGCONT</code> events will not be triggered if the stream was paused
+before the program was sent to the background.
+
+</p>
+<p>Example of listening for <code>SIGTSTP</code>:
+
+</p>
+<pre><code>rl.on('SIGTSTP', function() {
+  // This will override SIGTSTP and prevent the program from going to the
+  // background.
+  console.log('Caught SIGTSTP.');
+});</code></pre>
+<h3 id="readline_event_sigcont">Event: 'SIGCONT'<span><a class="mark" href="#readline_event_sigcont" id=""/></span></h3>
+<p><code>function () {}</code>
+
+</p>
+<p><strong>This does not work on Windows.</strong>
+
+</p>
+<p>Emitted whenever the <code>input</code> stream is sent to the background with <code>^Z</code>,
+respectively known as <code>SIGTSTP</code>, and then continued with <code>fg(1)</code>. This event
+only emits if the stream was not paused before sending the program to the
+background.
+
+</p>
+<p>Example of listening for <code>SIGCONT</code>:
+
+</p>
+<pre><code>rl.on('SIGCONT', function() {
+  // `prompt` will automatically resume the stream
+  rl.prompt();
+});</code></pre>
+<h2 id="readline_example_tiny_cli">Example: Tiny CLI<span><a class="mark" href="#readline_example_tiny_cli" id=""/></span></h2>
 <p>Here's an example of how to use all these together to craft a tiny command
-line interface:</p>
+line interface:
 
+</p>
 <pre><code>var readline = require('readline'),
-  rl = readline.createInterface(process.stdin, process.stdout),
-  prefix = 'OHAI&gt; ';
+    rl = readline.createInterface(process.stdin, process.stdout);
+
+rl.setPrompt('OHAI&gt; ');
+rl.prompt();
 
 rl.on('line', function(line) {
   switch(line.trim()) {
@@ -131,22 +304,15 @@ rl.on('line', function(line) {
       console.log('Say what? I might have heard `' + line.trim() + '`');
       break;
   }
-  rl.setPrompt(prefix, prefix.length);
   rl.prompt();
 }).on('close', function() {
   console.log('Have a great day!');
   process.exit(0);
-});
-console.log(prefix + 'Good to see you. Try typing stuff.');
-rl.setPrompt(prefix, prefix.length);
-rl.prompt();</code></pre>
+});</code></pre>
 
-<p>Take a look at this slightly more complicated
-<a href="https://gist.github.com/901104" target="_blank">example</a>, and
-<a href="https://github.com/cloudhead/http-console" target="_blank">http-console</a> for a real-life use
-case.</p>
+          </div>
         </div>
     </div>
     
-    
+
   </body></html>

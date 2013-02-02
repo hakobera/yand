@@ -8,6 +8,12 @@ var libxmlext = require('libxmlext'),
     async = require('async'),
     cache = require('../lib/cache');
 
+function debug(obj) {
+  if (process.env.NODE_DEBUG) {
+    console.log(obj);
+  }
+}
+
 function Crawler() {
   this.seen = {};
 }
@@ -29,7 +35,7 @@ Crawler.prototype.run = function(uri, callback) {
       return callback(util.format('%s : %d : %s', url,  res.statusCode, err));
     }
 
-    console.log('[url] ' + uri);
+    console.log('[content] %s', uri);
     self.processBody(uri, body, function(err, uris) {
       if (err) {
         return callback(err);
@@ -47,36 +53,35 @@ Crawler.prototype.run = function(uri, callback) {
 };
 
 Crawler.prototype.processBody = function(uri, body, callback) {
-  var self = this, 
-      doc = libxmlext.parseHtmlString(body), 
-      pushed = {},  
+  var self = this,
+      doc = libxmlext.parseHtmlString(body),
+      pushed = {},
       links = [];
 
-  //console.log(body);
-
   self.seen[uri] = true;
+  console.log(uri);
   cache.set(uri, body, 10000, function(err) {
     if (err) {
       return callback(err);
     }
 
-    doc.find("//div[@id='toc']//a").forEach(function(a) {
+    doc.find("//div[@id='apicontent']//a").forEach(function(a) {
       var href = a.attr('href');
       if (!href) {
         return;
       }
       var nextlink = '' + url.resolve(uri, href.value().replace(/#.*/,  '')).toString();
       if (self.seen[nextlink]) {
-        //console.log('[seen2] %s', nextlink);
+        debug('[seen2] ' + nextlink);
         return;
       }
 
       if (nextlink.match(/.*\.html$/) && !pushed[nextlink]) {
-        //console.log('[push] %s', nextlink);
+        debug('[push] ' + nextlink);
         links.push(nextlink);
         pushed[nextlink] = true;
       } else {
-        // console.log('[skip] %s', nextlink);
+        debug('[skip] ' + nextlink);
       }
     });
 
@@ -92,8 +97,10 @@ cache.clear(function(err) {
   }
 
   var crawler = new Crawler();
-  crawler.run('http://nodejs.org/docs/latest/api/index.html', function(err) {
-    console.log('done');
+  var version = process.env.NODE_VERSION || 'latest';
+  var srcUrl = 'http://nodejs.org/docs/' + version + '/api/index.html' 
+  console.log('Get Document from %s', srcUrl);
+  crawler.run(srcUrl, function(err) {
     console.timeEnd('elasped');
     process.exit(0);
   });
